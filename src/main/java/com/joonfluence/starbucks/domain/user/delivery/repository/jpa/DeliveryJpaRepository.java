@@ -1,0 +1,54 @@
+package com.joonfluence.starbucks.domain.user.delivery.repository.jpa;
+
+import com.joonfluence.starbucks.domain.user.delivery.dto.DeliverySaveDto;
+import com.joonfluence.starbucks.domain.user.delivery.dto.DeliveryUpdateDto;
+import com.joonfluence.starbucks.domain.user.delivery.entity.Delivery;
+import com.joonfluence.starbucks.domain.user.delivery.repository.DeliveryRepository;
+import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
+import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@RequiredArgsConstructor
+public class DeliveryJpaRepository implements DeliveryRepository {
+    @PersistenceContext
+    EntityManager em;
+
+    private final CustomerRepository customerRepository;
+
+    @Override
+    @Transactional
+    public Long save(DeliverySaveDto dto) {
+        Customer customer = customerRepository.findById(dto.getCustomerId());
+        Delivery delivery = Delivery.builder().name(dto.getName()).customer(customer).build();
+        em.persist(delivery);
+        return delivery.getId();
+    }
+
+    @Override
+    public Delivery findById(Long memberId) {
+        return em.find(Delivery.class, memberId);
+    }
+
+    @Override
+    public List<Delivery> findAll() {
+        return em.createQuery("select d from Delivery d", Delivery.class).getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void update(DeliveryUpdateDto dto) {
+        Delivery delivery = findById(dto.getId());
+        Delivery newDelivery = Delivery.builder().id(dto.getId()).name(dto.getName()).likeCount(dto.getLikeCount()).build();
+        delivery.update(newDelivery);
+    }
+
+    @Override
+    public void delete(Delivery delivery) {
+        em.remove(delivery);
+    }
+}
