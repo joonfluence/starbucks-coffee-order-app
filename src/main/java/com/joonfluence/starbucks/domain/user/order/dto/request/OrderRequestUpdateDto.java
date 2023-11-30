@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/com/joonfluence/starbucks/domain/user/order/dto/request/OrderRequestUpdateDto.java
 package com.joonfluence.starbucks.domain.user.order.dto.request;
+========
+package com.joonfluence.starbucks.domain.user.order.dto;
+>>>>>>>> b8157fe ([CONFIG] Initial Order/Delivery/Admin domain setting):src/main/java/com/joonfluence/starbucks/domain/user/order/dto/OrderUpdateDto.java
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
