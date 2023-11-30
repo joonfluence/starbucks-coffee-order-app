@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: jdbc:mysql://localhost:${DB_PORT}/${DB_DATABASE_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate: # hibernate 사용 설정
+      ddl-auto: update
+    properties: # property 사용 설정
+      hibernate: # hibernate property 설정
+        dialect: org.hibernate.dialect.MySQLDialect
+        show-sql: true
+        format_sql: true
+  logging:
+    level:
+      org.hibernate.SQL: debug
+h2:
+  console:
+    enabled: true
