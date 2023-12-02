@@ -1,5 +1,7 @@
 package com.joonfluence.starbucks.domain.admin.shop.service;
 
-public interface ShopService {
-    void join();
+public class ShopService {
+    public void join() {
+        System.out.println("MemberServiceImpl.join");
+    }
 }

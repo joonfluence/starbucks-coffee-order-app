@@ -14,8 +14,19 @@ public class Customer {
     @Column(name = "id", nullable = false)
     private Long id;
     private String name;
+    private String email;
+    private String password;
 
-    public void update(Customer customer){
+
+    public void updateName(Customer customer){
         this.name = customer.getName();
+    }
+
+    public void updateEmail(Customer customer){
+        this.email = customer.getEmail();
+    }
+
+    public void updatePassword(Customer customer){
+        this.password = customer.getPassword();
     }
 }
