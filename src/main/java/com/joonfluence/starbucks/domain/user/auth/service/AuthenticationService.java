@@ -1,6 +1,10 @@
 package com.joonfluence.starbucks.domain.user.auth.service;
 
+<<<<<<< HEAD
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
+=======
+<<<<<<< HEAD
+>>>>>>> 4fad24b ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.global.security.JwtService;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
@@ -65,3 +69,24 @@ public class AuthenticationService {
         }
     }
 }
+=======
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
+import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
+import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+@Service
+@RequiredArgsConstructor
+public class AuthenticationService { }
+>>>>>>> 806e707 ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)

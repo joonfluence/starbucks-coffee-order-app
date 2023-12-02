@@ -1,5 +1,6 @@
 package com.joonfluence.starbucks.domain.user.order.service;
 
+<<<<<<< HEAD
 import com.joonfluence.starbucks.domain.admin.product.entity.Product;
 import com.joonfluence.starbucks.domain.admin.product.exception.NoSuchProductException;
 import com.joonfluence.starbucks.domain.admin.product.repository.ProductRepository;
@@ -55,3 +56,14 @@ public class OrderService {
         });
     }
 }
+=======
+import com.joonfluence.starbucks.domain.user.order.dto.OrderSaveDto;
+import com.joonfluence.starbucks.domain.user.order.dto.OrderUpdateDto;
+import com.joonfluence.starbucks.domain.user.order.entity.Order;
+import com.joonfluence.starbucks.domain.user.order.repository.OrderRepository;
+import com.joonfluence.starbucks.domain.user.customer.service.NotificationService;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public class OrderService {}
+>>>>>>> 806e707 ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)

@@ -14,6 +14,7 @@ public class Customer extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
     private Long id;
+<<<<<<< HEAD
     private String nickName;
 
     @Column(unique = true)
@@ -44,5 +45,22 @@ public class Customer extends BaseTimeEntity {
 
     public void updatePassword(String password){
         this.password = password;
+=======
+    private String name;
+    private String email;
+    private String password;
+
+
+    public void updateName(Customer customer){
+        this.name = customer.getName();
+>>>>>>> 806e707 ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
+    }
+
+    public void updateEmail(Customer customer){
+        this.email = customer.getEmail();
+    }
+
+    public void updatePassword(Customer customer){
+        this.password = customer.getPassword();
     }
 }
