@@ -23,6 +23,10 @@ import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+<<<<<<< HEAD
+=======
+import org.apache.catalina.core.ApplicationContext;
+>>>>>>> 2e820e8 (feat(Auth) : 로그인 기능 구현)
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -41,6 +45,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+<<<<<<< HEAD
 
     @Transactional
     public RegisterResponse register(RegisterRequest request) {
@@ -112,6 +117,8 @@ public class AuthenticationService {
     private final CustomerRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+=======
+>>>>>>> 2e820e8 (feat(Auth) : 로그인 기능 구현)
 
     @Transactional
     public Long register(RegisterRequest request) {
@@ -123,8 +130,17 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse logIn(LoginRequest request) {
-        log.info("AuthenticationService.logIn");
-        return AuthenticationResponse.builder().accessToken("asdcasdvas").refreshToken("asdfasvasd").build();
+        Authentication authentication = authenticateLoginRequest(request);
+        return jwtService.generateToken(authentication);
+    }
+
+    private Authentication authenticateLoginRequest(LoginRequest request) {
+        return authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
     }
 
     private void validateByEmail(String email) {
