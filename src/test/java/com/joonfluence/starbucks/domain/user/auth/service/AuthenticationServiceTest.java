@@ -15,10 +15,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +34,8 @@ class AuthenticationServiceTest {
     @Mock
     JwtService jwtService;
     @Mock
+    AuthenticationManager authenticationManager;
+    @Mock
     PasswordEncoder passwordEncoder;
     @InjectMocks
     AuthenticationService authenticationService;
@@ -35,12 +43,15 @@ class AuthenticationServiceTest {
     private RegisterRequest registerRequestDto;
     private RegisterRequest blankRegisterRequestDto;
     private Customer user;
+    private LoginRequest loginRequest;
+    private Authentication authentication;
 
     @BeforeEach
     public void init(){
         registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
         blankRegisterRequestDto = RegisterRequest.builder().email("").name("Joonho").password("12341234").build();
         user = registerRequestDto.toEntity();
+        loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("12341234").passwordRepeated("12341234").build();
     }
 
     @DisplayName("1. 사용자가 회원가입에 필요한 정보를 입력했을 때, 정상 가입되어야 한다.")
@@ -61,7 +72,10 @@ class AuthenticationServiceTest {
     @Test
     void logIn(){
         // given : 사용자가 로그인에 필요한 정보를 입력했을 때
-        LoginRequest loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("12341234").passwordRepeated("12341234").build();
+        Authentication authentication = mock(Authentication.class);
+        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
 
         // when
         AuthenticationResponse authenticationResponse = authenticationService.logIn(loginRequest);
@@ -69,6 +83,7 @@ class AuthenticationServiceTest {
         Boolean refreshTokenValidated = jwtService.validateToken(authenticationResponse.getRefreshToken());
 
         // then
+        Assertions.assertNotNull(authenticationResponse);
         Assertions.assertTrue(accessTokenValidated);
         Assertions.assertTrue(refreshTokenValidated);
     }

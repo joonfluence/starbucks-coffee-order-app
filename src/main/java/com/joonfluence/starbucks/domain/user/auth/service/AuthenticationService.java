@@ -9,6 +9,10 @@ import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,7 @@ public class AuthenticationService {
     private final CustomerRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
 
     @Transactional
     public Long register(RegisterRequest request) {
@@ -31,8 +36,17 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse logIn(LoginRequest request) {
-        log.info("AuthenticationService.logIn");
-        return AuthenticationResponse.builder().accessToken("asdcasdvas").refreshToken("asdfasvasd").build();
+        Authentication authentication = authenticateLoginRequest(request);
+        return jwtService.generateToken(authentication);
+    }
+
+    private Authentication authenticateLoginRequest(LoginRequest request) {
+        return authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
     }
 
     private void validateByEmail(String email) {
