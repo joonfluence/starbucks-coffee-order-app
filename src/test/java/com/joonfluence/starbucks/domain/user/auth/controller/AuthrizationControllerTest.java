@@ -78,7 +78,9 @@ class AuthrizationControllerTest {
 =======
 import com.joonfluence.starbucks.domain.user.auth.config.JwtAuthenticationFilter;
 import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
+import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
@@ -94,20 +96,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+@SpringBootTest
 @WebMvcTest(controllers = AuthrizationController.class)
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
@@ -125,6 +124,7 @@ class AuthrizationControllerTest {
 
     private RegisterRequest registerRequestDto;
     private RegisterRequest notEnoughInfoRegisterRequestDto;
+    private LoginRequest loginRequest;
     private Customer user;
 >>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
 >>>>>>> 609dc55 ([FEAT] 회원가입 기능 구현)
@@ -146,7 +146,11 @@ class AuthrizationControllerTest {
 =======
         user = registerRequestDto.toEntity();
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 609dc55 ([FEAT] 회원가입 기능 구현)
+=======
+<<<<<<< HEAD
+>>>>>>> 3613cf4 (test(Auth) : Mockito로 로그인 기능 테스트)
         loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("!abcd1234").passwordRepeated("!abcd1234").build();
         response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshTokenUUid(UUID.randomUUID().toString()).build();
     }
@@ -195,6 +199,9 @@ class AuthrizationControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.access_token", CoreMatchers.is(response.getAccessToken())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.refresh_token", CoreMatchers.is(response.getRefreshToken())));
 =======
+=======
+        loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("12341234").passwordRepeated("12341234").build();
+>>>>>>> 8827480 (test(Auth) : Mockito로 로그인 기능 테스트)
     }
 
     @DisplayName("1. 사용자가 회원가입에 정보를 잘못 입력했을 때, 가입되면 안된다.")
@@ -213,5 +220,11 @@ class AuthrizationControllerTest {
         response.andExpect(MockMvcResultMatchers.status().isCreated());
 >>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
 >>>>>>> 609dc55 ([FEAT] 회원가입 기능 구현)
+    }
+
+    @DisplayName("2. 사용자가 로그인에 필요한 정보를 입력했을 때, 정상 로그인(토큰 반환) 되어야 한다.")
+    @Test
+    void logIn(){
+
     }
 }
