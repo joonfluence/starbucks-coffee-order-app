@@ -3,7 +3,9 @@ package com.joonfluence.starbucks.domain.user.auth.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joonfluence.starbucks.domain.user.auth.config.JwtAuthenticationFilter;
 import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
+import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
@@ -19,20 +21,17 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+@SpringBootTest
 @WebMvcTest(controllers = AuthrizationController.class)
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
@@ -50,6 +49,7 @@ class AuthrizationControllerTest {
 
     private RegisterRequest registerRequestDto;
     private RegisterRequest notEnoughInfoRegisterRequestDto;
+    private LoginRequest loginRequest;
     private Customer user;
 
     @BeforeEach
@@ -57,6 +57,7 @@ class AuthrizationControllerTest {
         registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
         notEnoughInfoRegisterRequestDto = RegisterRequest.builder().email("").name("Joonho").password("12341234").build();
         user = registerRequestDto.toEntity();
+        loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("12341234").passwordRepeated("12341234").build();
     }
 
     @DisplayName("1. 사용자가 회원가입에 정보를 잘못 입력했을 때, 가입되면 안된다.")
@@ -73,5 +74,11 @@ class AuthrizationControllerTest {
 
         // then
         response.andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @DisplayName("2. 사용자가 로그인에 필요한 정보를 입력했을 때, 정상 로그인(토큰 반환) 되어야 한다.")
+    @Test
+    void logIn(){
+
     }
 }
