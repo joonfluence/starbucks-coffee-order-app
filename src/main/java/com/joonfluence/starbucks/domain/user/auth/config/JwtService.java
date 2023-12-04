@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.domain.user.auth.config;
 
 import com.joonfluence.starbucks.domain.user.auth.dto.TokenDto;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -32,32 +33,35 @@ public class JwtService {
     private final Key key;
 
     public JwtService(@Value("${application.security.jwt.secret-key}") String secretKey, @Value("${application.security.jwt.expiration}") long accessTokenExpireTime, @Value("${application.security.jwt.refresh-token.expiration}") long refreshTokenExpireTime) {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        this.key = Keys.hmacShaKeyFor(keyBytes);
+        key = getSignInKey(secretKey);
         this.accessTokenExpireTime = accessTokenExpireTime;
         this.refreshTokenExpireTime = refreshTokenExpireTime;
     }
 
-    public TokenDto generateTokenDto(Authentication authentication) {
+    public AuthenticationResponse generateToken(Authentication authentication) {
         // 권한들 가져오기
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        long now = (new Date()).getTime();
-
         // Access Token 생성
-        Date accessTokenExpiresIn = new Date(now + accessTokenExpireTime);
-        String accessToken = Jwts.builder()
-                .setSubject(authentication.getName())       // payload "sub": "name"
-                .claim(AUTHORITIES_KEY, authorities)        // payload "auth": "ROLE_USER"
-                .setExpiration(accessTokenExpiresIn)        // payload "exp": 1516239022 (예시)
-                .signWith(key, SignatureAlgorithm.HS512)    // header "alg": "HS512"
-                .compact();
+        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
+        String refreshToken = buildToken(authentication, authorities, refreshTokenExpireTime);
 
-        return TokenDto.builder()
+        return AuthenticationResponse.builder()
                 .accessToken(accessToken)
+                .refreshToken(refreshToken)
                 .build();
+    }
+
+    private String buildToken(Authentication authentication, String authorities, long expiration) {
+        return Jwts.builder()
+                .claim(AUTHORITIES_KEY, authorities) // payload "auth": "ROLE_USER"
+                .setSubject(authentication.getName()) // payload "sub": "name"
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // payload "exp": 1516239022 (예시)
+                .signWith(key, SignatureAlgorithm.HS512) // header "alg": "HS512"
+                .compact();
     }
 
     public Authentication getAuthentication(String accessToken) {
@@ -85,15 +89,14 @@ public class JwtService {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            throw new SecurityException("잘못된 JWT 서명입니다.");
+            throw new JwtException("잘못된 JWT 서명입니다.");
         } catch (ExpiredJwtException e) {
-            log.info("만료된 JWT 토큰입니다.");
+            throw new JwtException("만료된 JWT 토큰입니다.");
         } catch (UnsupportedJwtException e) {
-            throw new UnsupportedJwtException("지원되지 않는 JWT 토큰입니다.");
+            throw new JwtException("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("JWT 토큰이 잘못되었습니다.");
+            throw new JwtException("JWT 토큰이 잘못되었습니다.");
         }
-        return false;
     }
 
     private Claims parseClaims(String accessToken) {
@@ -102,5 +105,10 @@ public class JwtService {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    private Key getSignInKey(String secretKey) {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 }
