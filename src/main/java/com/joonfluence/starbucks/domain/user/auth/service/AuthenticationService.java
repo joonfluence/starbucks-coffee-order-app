@@ -7,9 +7,9 @@ import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationRes
 import com.joonfluence.starbucks.domain.user.auth.exception.DuplicateUserEmailException;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,6 +38,14 @@ public class AuthenticationService {
     public AuthenticationResponse logIn(LoginRequest request) {
         Authentication authentication = authenticateLoginRequest(request);
         return jwtService.generateToken(authentication);
+    }
+
+    public AuthenticationResponse refreshToken(HttpServletRequest request) {
+        String resolveToken = jwtService.resolveToken(request);
+        String userEmail = jwtService.extractUsername(resolveToken);
+        Customer customer = repository.findById(Long.parseLong(userEmail)).orElseThrow();
+        jwtService.validateToken(resolveToken);
+        return jwtService.generateToken(customer);
     }
 
     private Authentication authenticateLoginRequest(LoginRequest request) {
