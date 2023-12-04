@@ -4,7 +4,8 @@ import com.joonfluence.starbucks.domain.user.auth.dto.request.AuthenticationRequ
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
-import com.joonfluence.starbucks.global.dto.GlobalResponseDto;
+import com.joonfluence.starbucks.global.dto.GlobalResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,13 +29,13 @@ public class AuthrizationController {
     }
 
     @PostMapping("/api/v1/auth/signUp")
-    public ResponseEntity<GlobalResponseDto<Boolean>> signUp(@RequestBody RegisterRequest request){
-        authenticationService.register(request);
-        return ResponseEntity.status(201).body(new GlobalResponseDto<Boolean>(201, true, "회원가입이 완료되었습니다."));
+    public ResponseEntity<GlobalResponse<Long>> signUp(@RequestBody @Valid RegisterRequest request){
+        Long registeredUserId = authenticationService.register(request);
+        return ResponseEntity.status(201).body(new GlobalResponse<Long>(201, registeredUserId, "회원가입이 완료되었습니다."));
     }
 
     @PostMapping("/api/v1/auth/login")
-    public ResponseEntity<GlobalResponseDto<AuthenticationResponse>> logIn(AuthenticationRequest dto){
-        return ResponseEntity.status(200).body(new GlobalResponseDto<AuthenticationResponse>());
+    public ResponseEntity<GlobalResponse<AuthenticationResponse>> logIn(AuthenticationRequest dto){
+        return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>());
     }
 }
