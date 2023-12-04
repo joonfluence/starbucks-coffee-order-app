@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.domain.user.auth.service;
 
-import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
+import com.joonfluence.starbucks.global.security.JwtService;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
@@ -27,12 +28,12 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Transactional
-    public Long register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         validateByEmail(request.getEmail());
         Customer customer = request.toEntity();
         customer.updatePassword(passwordEncoder.encode(customer.getPassword()));
         Customer saved = repository.save(customer);
-        return saved.getId();
+        return new RegisterResponse(saved.getId(), saved.getName(), saved.getEmail());
     }
 
     public AuthenticationResponse logIn(LoginRequest request) {

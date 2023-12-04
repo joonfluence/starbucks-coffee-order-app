@@ -1,4 +1,4 @@
-package com.joonfluence.starbucks.domain.user.auth.config;
+package com.joonfluence.starbucks.global.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

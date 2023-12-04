@@ -1,4 +1,4 @@
-package com.joonfluence.starbucks.domain.user.auth.config;
+package com.joonfluence.starbucks.global.security;
 
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import org.springframework.security.core.GrantedAuthority;

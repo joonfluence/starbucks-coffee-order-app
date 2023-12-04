@@ -1,8 +1,7 @@
-package com.joonfluence.starbucks.domain.user.auth.config;
+package com.joonfluence.starbucks.global.security;
 
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
