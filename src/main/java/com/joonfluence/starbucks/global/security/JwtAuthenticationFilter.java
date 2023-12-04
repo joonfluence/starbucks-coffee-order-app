@@ -1,4 +1,4 @@
-package com.joonfluence.starbucks.domain.user.auth.config;
+package com.joonfluence.starbucks.global.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joonfluence.starbucks.global.dto.ErrorResponse;

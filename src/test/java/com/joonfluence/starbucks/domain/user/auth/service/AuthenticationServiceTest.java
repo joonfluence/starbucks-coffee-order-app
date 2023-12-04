@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.domain.user.auth.service;
 
-import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
+import com.joonfluence.starbucks.global.security.JwtService;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
@@ -18,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -37,8 +37,6 @@ class AuthenticationServiceTest {
     CustomerRepository customerRepository;
     @Mock
     Authentication authentication;
-    @Mock
-    SecurityContext securityContext;
     @InjectMocks
     AuthenticationService authenticationService;
 
@@ -65,8 +63,8 @@ class AuthenticationServiceTest {
         when(customerRepository.save(Mockito.any(Customer.class))).thenReturn(user);
 
         // when
-        Long registeredUser = authenticationService.register(registerRequestDto);
-        Optional<Customer> customer = customerRepository.findById(registeredUser);
+        RegisterResponse registeredUser = authenticationService.register(registerRequestDto);
+        Optional<Customer> customer = customerRepository.findById(registeredUser.getUserId());
 
         // then
         Assertions.assertNotNull(customer);

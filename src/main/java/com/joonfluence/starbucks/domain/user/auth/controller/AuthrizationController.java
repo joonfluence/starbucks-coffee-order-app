@@ -3,6 +3,7 @@ package com.joonfluence.starbucks.domain.user.auth.controller;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,9 +32,9 @@ public class AuthrizationController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<GlobalResponse<Long>> signUp(@RequestBody @Valid RegisterRequest request){
-        Long registeredUserId = authenticationService.register(request);
-        return ResponseEntity.status(201).body(new GlobalResponse<Long>(201, registeredUserId, "회원가입이 완료되었습니다."));
+    public ResponseEntity<GlobalResponse<RegisterResponse>> signUp(@RequestBody @Valid RegisterRequest request){
+        RegisterResponse response = authenticationService.register(request);
+        return ResponseEntity.status(201).body(new GlobalResponse<RegisterResponse>(201, response, "회원가입이 완료되었습니다."));
     }
 
     @PostMapping("/refresh-token")
