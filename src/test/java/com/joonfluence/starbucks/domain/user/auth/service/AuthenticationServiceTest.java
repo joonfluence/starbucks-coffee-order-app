@@ -19,24 +19,26 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationServiceTest {
-    @Mock
-    CustomerRepository customerRepository;
     @Mock
     JwtService jwtService;
     @Mock
     AuthenticationManager authenticationManager;
     @Mock
     PasswordEncoder passwordEncoder;
+    @Mock
+    CustomerRepository customerRepository;
+    @Mock
+    Authentication authentication;
+    @Mock
+    SecurityContext securityContext;
     @InjectMocks
     AuthenticationService authenticationService;
 
@@ -44,7 +46,8 @@ class AuthenticationServiceTest {
     private RegisterRequest blankRegisterRequestDto;
     private Customer user;
     private LoginRequest loginRequest;
-    private Authentication authentication;
+    private AuthenticationResponse response;
+
 
     @BeforeEach
     public void init(){
@@ -52,6 +55,7 @@ class AuthenticationServiceTest {
         blankRegisterRequestDto = RegisterRequest.builder().email("").name("Joonho").password("12341234").build();
         user = registerRequestDto.toEntity();
         loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("12341234").passwordRepeated("12341234").build();
+        response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAyMjkxNjA0fQ.G5xYWiC8xN5vhZtT_QQ_wEk8_y0SAsmODF2oqLC7KS-JEjvKPYKYIiv6GUf4b1tlfT4fOYDblvDuwFaQJNygxA").build();
     }
 
     @DisplayName("1. 사용자가 회원가입에 필요한 정보를 입력했을 때, 정상 가입되어야 한다.")
@@ -68,23 +72,19 @@ class AuthenticationServiceTest {
         Assertions.assertNotNull(customer);
     }
 
-    @DisplayName("2. 사용자가 로그인에 필요한 정보를 입력했을 때, 정상 로그인(토큰 반환) 되어야 한다.")
+    @DisplayName("2. 로그인 요청 시, 액세스 토큰과 리프레시 토큰이 발급되어야 한다.")
     @Test
-    void logIn(){
+    void login(){
         // given : 사용자가 로그인에 필요한 정보를 입력했을 때
-        Authentication authentication = mock(Authentication.class);
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
+        when(authenticationManager.authenticate(Mockito.any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
+        when(jwtService.generateToken(Mockito.any(Authentication.class))).thenReturn(response);
 
         // when
         AuthenticationResponse authenticationResponse = authenticationService.logIn(loginRequest);
-        Boolean accessTokenValidated = jwtService.validateToken(authenticationResponse.getAccessToken());
-        Boolean refreshTokenValidated = jwtService.validateToken(authenticationResponse.getRefreshToken());
 
         // then
         Assertions.assertNotNull(authenticationResponse);
-        Assertions.assertTrue(accessTokenValidated);
-        Assertions.assertTrue(refreshTokenValidated);
+        Assertions.assertNotNull(authenticationResponse.getAccessToken());
+        Assertions.assertNotNull(authenticationResponse.getRefreshToken());
     }
 }

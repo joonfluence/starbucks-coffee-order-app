@@ -1,6 +1,5 @@
 package com.joonfluence.starbucks.domain.user.auth.config;
 
-import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
