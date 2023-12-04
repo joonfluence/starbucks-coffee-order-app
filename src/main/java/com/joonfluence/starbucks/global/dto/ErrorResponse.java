@@ -1,24 +1,21 @@
 package com.joonfluence.starbucks.global.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GlobalResponseDto<D> {
+public class ErrorResponse<D> {
     private int statusCode;
     private String message;
-    private D data;
+    private D error;
 
-    @Builder
-    public GlobalResponseDto(int statusCode, D data, String message) {
+    public ErrorResponse(int statusCode, String message) {
         this.statusCode = statusCode;
-        this.data = data;
         this.message = message;
     }
 }
