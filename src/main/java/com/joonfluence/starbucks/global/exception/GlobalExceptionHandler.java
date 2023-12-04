@@ -29,18 +29,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
+=======
+>>>>>>> 8d31ae2 (feat(Auth) : 리프레쉬 토큰 및 토큰 Response 구현)
     @ExceptionHandler(DuplicateUserEmailException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<ErrorResponse> handleDuplicateUserEmailException(DuplicateUserEmailException ex) {
-        return ResponseEntity.status(400).body(new ErrorResponse(400, ex.getMessage()));
-    }
-
-    @ExceptionHandler(JwtException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    protected ResponseEntity<ErrorResponse> handleJwtException(JwtException ex) {
         return ResponseEntity.status(400).body(new ErrorResponse(400, ex.getMessage()));
     }
 }

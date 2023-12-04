@@ -24,9 +24,12 @@ import com.joonfluence.starbucks.domain.user.customer.repository.CustomerReposit
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.apache.catalina.core.ApplicationContext;
 >>>>>>> 2e820e8 (feat(Auth) : 로그인 기능 구현)
+=======
+>>>>>>> 8d31ae2 (feat(Auth) : 리프레쉬 토큰 및 토큰 Response 구현)
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -132,6 +135,14 @@ public class AuthenticationService {
     public AuthenticationResponse logIn(LoginRequest request) {
         Authentication authentication = authenticateLoginRequest(request);
         return jwtService.generateToken(authentication);
+    }
+
+    public AuthenticationResponse refreshToken(HttpServletRequest request) {
+        String resolveToken = jwtService.resolveToken(request);
+        String userEmail = jwtService.extractUsername(resolveToken);
+        Customer customer = repository.findById(Long.parseLong(userEmail)).orElseThrow();
+        jwtService.validateToken(resolveToken);
+        return jwtService.generateToken(customer);
     }
 
     private Authentication authenticateLoginRequest(LoginRequest request) {

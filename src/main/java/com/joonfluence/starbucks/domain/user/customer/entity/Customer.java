@@ -4,6 +4,10 @@ import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

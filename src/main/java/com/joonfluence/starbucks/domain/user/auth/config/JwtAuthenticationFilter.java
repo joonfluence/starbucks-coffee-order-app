@@ -1,5 +1,7 @@
 package com.joonfluence.starbucks.domain.user.auth.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joonfluence.starbucks.global.dto.ErrorResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +20,6 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String BEARER_PREFIX = "Bearer ";
-
     private final JwtService jwtService;
 
     /*
@@ -33,35 +31,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         // 1. Request Header 에서 토큰을 꺼냄
-        String token = resolveToken(request);
-
-        // 2. validateToken 으로 토큰 유효성 검사
-        if (StringUtils.hasText(token) && jwtService.validateToken(token)) {
-            // 3. 정상 토큰이면 해당 토큰으로 Authentication 을 가져와서 SecurityContext 에 저장
-            Authentication authentication = jwtService.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
+        String token = jwtService.resolveToken(request);
 
         try {
+            // 2. validateToken 으로 토큰 유효성 검사
+            if (StringUtils.hasText(token) && jwtService.validateToken(token)) {
+                // 3. 정상 토큰이면 해당 토큰으로 Authentication 을 가져와서 SecurityContext 에 저장
+                Authentication authentication = jwtService.getAuthentication(token);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+
             // 4. 다음 단계로 넘김
             filterChain.doFilter(request, response);
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             // 5. 에러 반환
+            ObjectMapper objectMapper = new ObjectMapper();
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse(401, e.getMessage())));
         }
-    }
-
-    /*
-
-    Request Header 에서 토큰 정보를 꺼내옴
-
-    */
-    private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-            return bearerToken.substring(7);
-        }
-        return null;
     }
 }

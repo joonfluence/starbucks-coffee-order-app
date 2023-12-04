@@ -113,10 +113,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 class AuthrizationControllerTest {
     @Autowired
     private MockMvc mockMvc;
-    @Mock
-    private JwtService jwtService;
-    @MockBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
     @MockBean
     private AuthenticationService authenticationService;
     @Autowired
