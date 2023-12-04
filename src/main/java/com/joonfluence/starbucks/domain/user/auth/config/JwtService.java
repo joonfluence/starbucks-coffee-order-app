@@ -1,12 +1,17 @@
 package com.joonfluence.starbucks.domain.user.auth.config;
 
-import com.joonfluence.starbucks.domain.user.auth.dto.TokenDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
+import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
+import com.joonfluence.starbucks.global.dto.ErrorResponse;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,20 +19,21 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 public class JwtService {
-
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER_PREFIX = "Bearer ";
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-
     private final long accessTokenExpireTime; // 30분
     private final long refreshTokenExpireTime;  // 7일
     private final Key key;
@@ -36,6 +42,28 @@ public class JwtService {
         key = getSignInKey(secretKey);
         this.accessTokenExpireTime = accessTokenExpireTime;
         this.refreshTokenExpireTime = refreshTokenExpireTime;
+    }
+
+    /*
+
+    Request Header 에서 토큰 정보를 꺼내옴
+
+    */
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = parseClaims(token);
+        return claimsResolver.apply(claims);
     }
 
     public AuthenticationResponse generateToken(Authentication authentication) {
@@ -54,14 +82,12 @@ public class JwtService {
                 .build();
     }
 
-    private String buildToken(Authentication authentication, String authorities, long expiration) {
-        return Jwts.builder()
-                .claim(AUTHORITIES_KEY, authorities) // payload "auth": "ROLE_USER"
-                .setSubject(authentication.getName()) // payload "sub": "name"
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // payload "exp": 1516239022 (예시)
-                .signWith(key, SignatureAlgorithm.HS512) // header "alg": "HS512"
-                .compact();
+    public AuthenticationResponse generateToken(Customer user) {
+        // Access Token 생성
+        String accessToken = buildToken(new HashMap<>(), user, accessTokenExpireTime);
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .build();
     }
 
     public Authentication getAuthentication(String accessToken) {
@@ -88,13 +114,13 @@ public class JwtService {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            throw new JwtException("잘못된 JWT 서명입니다.");
+            throw new JwtException("It's malforemd JWT.");
         } catch (ExpiredJwtException e) {
-            throw new JwtException("만료된 JWT 토큰입니다.");
+            throw new JwtException("It's expired JWT.");
         } catch (UnsupportedJwtException e) {
-            throw new JwtException("지원되지 않는 JWT 토큰입니다.");
+            throw new JwtException("It's unsupported JWT.");
         } catch (IllegalArgumentException e) {
-            throw new JwtException("JWT 토큰이 잘못되었습니다.");
+            throw new JwtException("It's illegal JWT.");
         }
     }
 
@@ -102,12 +128,32 @@ public class JwtService {
         try {
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
         } catch (ExpiredJwtException e) {
-            return e.getClaims();
+            throw new JwtException(e.getMessage());
         }
     }
 
     private Key getSignInKey(String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private String buildToken(Authentication authentication, String authorities, long expiration) {
+        return Jwts.builder()
+                .claim(AUTHORITIES_KEY, authorities) // payload "auth": "ROLE_USER"
+                .setSubject(authentication.getName()) // payload "sub": "name"
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // payload "exp": 1516239022 (예시)
+                .signWith(key, SignatureAlgorithm.HS512) // header "alg": "HS512"
+                .compact();
+    }
+
+    private String buildToken(Map<String, Object> extraClaims, Customer user, long expiration) {
+        return Jwts.builder()
+                .setClaims(extraClaims) // payload "auth": "ROLE_USER"
+                .setSubject(user.getId().toString()) // payload "sub": "7"
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration)) // payload "exp": 1516239022 (예시)
+                .signWith(key, SignatureAlgorithm.HS512) // header "alg": "HS512"
+                .compact();
     }
 }

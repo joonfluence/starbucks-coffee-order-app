@@ -3,6 +3,10 @@ package com.joonfluence.starbucks.domain.user.customer.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
