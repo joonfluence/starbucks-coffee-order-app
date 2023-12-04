@@ -1,4 +1,4 @@
-package com.joonfluence.starbucks.domain;
+package com.joonfluence.starbucks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

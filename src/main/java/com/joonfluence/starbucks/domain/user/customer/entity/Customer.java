@@ -47,9 +47,10 @@ public class Customer extends BaseTimeEntity {
         this.password = password;
 =======
     private String name;
+
+    @Column(unique = true)
     private String email;
     private String password;
-
 
     public void updateName(Customer customer){
         this.name = customer.getName();
@@ -60,7 +61,7 @@ public class Customer extends BaseTimeEntity {
         this.email = customer.getEmail();
     }
 
-    public void updatePassword(Customer customer){
-        this.password = customer.getPassword();
+    public void updatePassword(String password){
+        this.password = password;
     }
 }

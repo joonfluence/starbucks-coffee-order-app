@@ -1,16 +1,24 @@
 package com.joonfluence.starbucks.domain.user.auth.service;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
 =======
 <<<<<<< HEAD
 >>>>>>> 4fad24b ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
+=======
+<<<<<<< HEAD
+>>>>>>> 609dc55 ([FEAT] 회원가입 기능 구현)
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.global.security.JwtService;
+=======
+import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
+>>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
 import com.joonfluence.starbucks.domain.user.auth.exception.DuplicateUserEmailException;
+<<<<<<< HEAD
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -73,20 +81,56 @@ public class AuthenticationService {
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joonfluence.starbucks.domain.user.auth.config.JwtService;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
+=======
+>>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+=======
+import lombok.extern.slf4j.Slf4j;
+>>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService { }
 >>>>>>> 806e707 ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
+=======
+@Slf4j
+@RequiredArgsConstructor
+@Service
+public class AuthenticationService {
+    private final CustomerRepository repository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+
+    @Transactional
+    public Long register(RegisterRequest request) {
+        validateByEmail(request.getEmail());
+        Customer customer = request.toEntity();
+        customer.updatePassword(passwordEncoder.encode(customer.getPassword()));
+        Customer saved = repository.save(customer);
+        return saved.getId();
+    }
+
+    public AuthenticationResponse logIn(LoginRequest request) {
+        log.info("AuthenticationService.logIn");
+        return AuthenticationResponse.builder().accessToken("asdcasdvas").refreshToken("asdfasvasd").build();
+    }
+
+    private void validateByEmail(String email) {
+        if(repository.existsByEmail(email)){
+            throw new DuplicateUserEmailException("이미 중복된 이메일이 존재합니다");
+        }
+    }
+}
+>>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
