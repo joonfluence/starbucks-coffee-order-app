@@ -23,8 +23,8 @@ public class AuthrizationController {
     private final AuthenticationService authenticationService;
 
     @GetMapping("/test")
+    @CurrentUserCheck
     public ResponseEntity<String> testGet(@CurrentUser Long userId){
-        System.out.println("userId = " + userId);
         return ResponseEntity.status(200).body("Good");
     }
 
