@@ -1,4 +1,4 @@
-package com.joonfluence.starbucks.domain.user.order.dto;
+package com.joonfluence.starbucks.domain.user.order.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderUpdateDto {
+public class OrderRequestUpdateDto {
     private Long id;
     private String name;
     private int likeCount;
