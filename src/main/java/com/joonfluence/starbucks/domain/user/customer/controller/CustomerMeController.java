@@ -7,8 +7,15 @@ import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
 <<<<<<< HEAD
 =======
 import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUser;
+<<<<<<< HEAD
 >>>>>>> 820923e (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+<<<<<<< HEAD
 >>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+=======
+=======
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
+>>>>>>> d4e6445 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
+>>>>>>> 25f8286 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
 import com.joonfluence.starbucks.global.dto.SuccessResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,12 +41,18 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerMeController {
     @PostMapping("/id/find")
 <<<<<<< HEAD
+<<<<<<< HEAD
     @CurrentUserCheck
     public ResponseEntity<GlobalResponse> findId(@CurrentUser Long userId){
 =======
+=======
+>>>>>>> 25f8286 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
 <<<<<<< HEAD
     public ResponseEntity<GlobalResponse> findId(){
 =======
+=======
+    @CurrentUserCheck
+>>>>>>> d4e6445 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
     public ResponseEntity<GlobalResponse> findId(@CurrentUser Long userId){
 >>>>>>> 820923e (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
 >>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
