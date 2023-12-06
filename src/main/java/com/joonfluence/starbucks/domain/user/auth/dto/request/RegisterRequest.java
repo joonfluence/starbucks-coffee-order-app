@@ -14,18 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RegisterRequest {
-<<<<<<< HEAD
-<<<<<<< HEAD
     @NotEmpty(message = "닉네임 입력은 필수입니다")
     private String nickName;
-=======
-    @NotEmpty(message = "이름 입력은 필수입니다")
-    private String name;
->>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
-=======
-    @NotEmpty(message = "닉네임 입력은 필수입니다")
-    private String nickName;
->>>>>>> ac42eea (feat(Order): Create Order logic in Order Service Layer)
 
     @NotEmpty(message = "이메일 입력은 필수입니다")
     @Email(message = "이메일을 양식을 지켜주세요.")
@@ -36,14 +26,6 @@ public class RegisterRequest {
     private String password;
 
     public Customer toEntity(){
-<<<<<<< HEAD
-<<<<<<< HEAD
         return Customer.builder().nickName(nickName).email(email).password(password).build();
-=======
-        return Customer.builder().name(name).email(email).password(password).build();
->>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
-=======
-        return Customer.builder().nickName(nickName).email(email).password(password).build();
->>>>>>> ac42eea (feat(Order): Create Order logic in Order Service Layer)
     }
 }

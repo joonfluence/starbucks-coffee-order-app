@@ -1,6 +1,5 @@
 package com.joonfluence.starbucks.domain.user.order.entity;
 
-import com.joonfluence.starbucks.domain.admin.product.entity.Product;
 import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import jakarta.persistence.*;
@@ -18,10 +17,6 @@ public class Order extends BaseTimeEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
@@ -34,10 +29,6 @@ public class Order extends BaseTimeEntity {
 
     public void addMember(Customer customer) {
         this.customer = customer;
-    }
-
-    public void updateProduct(Product product) {
-        this.product = product;
     }
 
     public void updateCustomer(Customer customer) {
