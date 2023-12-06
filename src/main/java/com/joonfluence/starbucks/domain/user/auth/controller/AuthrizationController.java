@@ -54,6 +54,7 @@ public class AuthrizationController {
 <<<<<<< HEAD
 <<<<<<< HEAD
         System.out.println("[AuthrizationController.testGet] userId = " + userId);
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
@@ -71,7 +72,12 @@ public class AuthrizationController {
     @CurrentUserCheck
     public ResponseEntity<String> testGet(@CurrentUser Long userId){
 >>>>>>> bbf437a (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+<<<<<<< HEAD
 >>>>>>> cb9e8d5 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+=======
+=======
+>>>>>>> 2134f5b (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
+>>>>>>> 2a88bff (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
         return ResponseEntity.status(200).body("Good");
     }
 

@@ -11,6 +11,7 @@ import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
 =======
 import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUser;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 820923e (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
 <<<<<<< HEAD
 >>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
@@ -24,7 +25,13 @@ import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
 =======
 import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUser;
 >>>>>>> bbf437a (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+<<<<<<< HEAD
 >>>>>>> cb9e8d5 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+=======
+=======
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
+>>>>>>> 2134f5b (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
+>>>>>>> 2a88bff (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
 import com.joonfluence.starbucks.global.dto.SuccessResponse;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +68,7 @@ public class CustomerMeController {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @CurrentUserCheck
     public ResponseEntity<GlobalResponse> findId(@CurrentUser Long userId){
 =======
@@ -68,12 +76,17 @@ public class CustomerMeController {
 >>>>>>> 25f8286 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
 =======
 >>>>>>> cb9e8d5 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
+=======
+>>>>>>> 2a88bff (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
 <<<<<<< HEAD
     public ResponseEntity<GlobalResponse> findId(){
 =======
 =======
     @CurrentUserCheck
 >>>>>>> d4e6445 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
+=======
+    @CurrentUserCheck
+>>>>>>> 2134f5b (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
     public ResponseEntity<GlobalResponse> findId(@CurrentUser Long userId){
 >>>>>>> 820923e (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
 <<<<<<< HEAD
