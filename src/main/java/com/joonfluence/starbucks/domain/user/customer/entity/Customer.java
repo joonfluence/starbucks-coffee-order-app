@@ -4,10 +4,6 @@ import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +14,7 @@ public class Customer extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
     private Long id;
+<<<<<<< HEAD
 <<<<<<< HEAD
     private String nickName;
 
@@ -51,18 +48,40 @@ public class Customer extends BaseTimeEntity {
         this.password = password;
 =======
     private String name;
+=======
+    private String nickName;
+>>>>>>> ac42eea (feat(Order): Create Order logic in Order Service Layer)
 
     @Column(unique = true)
     private String email;
     private String password;
+    private String phoneNumber;
+    private Boolean pushNotificationOn;
+    private Boolean locationServiceAgree;
 
+<<<<<<< HEAD
     public void updateName(Customer customer){
         this.name = customer.getName();
 >>>>>>> 806e707 ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
+=======
+    // Order order;
+    // Delivery delivery;
+
+    public void update(Customer customer){
+        this.nickName = customer.getNickName();
+        this.email = customer.getEmail();
+        this.phoneNumber = customer.getPhoneNumber();
+        this.pushNotificationOn = customer.getPushNotificationOn();
+        this.locationServiceAgree = customer.getLocationServiceAgree();
+>>>>>>> ac42eea (feat(Order): Create Order logic in Order Service Layer)
     }
 
-    public void updateEmail(Customer customer){
-        this.email = customer.getEmail();
+    public void updateName(String nickName){
+        this.nickName = nickName;
+    }
+
+    public void updateEmail(String email){
+        this.email = email;
     }
 
     public void updatePassword(String password){
