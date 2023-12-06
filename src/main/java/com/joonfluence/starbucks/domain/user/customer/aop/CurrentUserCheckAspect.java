@@ -1,8 +1,16 @@
 package com.joonfluence.starbucks.domain.user.customer.aop;
 
+<<<<<<< HEAD
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+=======
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+>>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.security.core.Authentication;
@@ -10,7 +18,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
+<<<<<<< HEAD
 import java.lang.reflect.InvocationTargetException;
+=======
+>>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
 import java.lang.reflect.Method;
 
 
@@ -25,11 +36,16 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class CurrentUserCheckAspect {
+<<<<<<< HEAD
     @Pointcut("@annotation(com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck)")
+=======
+    @Pointcut("execution(* com.joonfluence.starbucks..*(..)) && @annotation(com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck)")
+>>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
     private void currentUserCheck() {}
 
     @Around("currentUserCheck()")
     public void execute(ProceedingJoinPoint joinPoint) throws Throwable {
+<<<<<<< HEAD
         setUserId(joinPoint, getUserId());
         joinPoint.proceed();
     }
@@ -37,13 +53,34 @@ public class CurrentUserCheckAspect {
     private static void setUserId(ProceedingJoinPoint joinPoint, Long userId) throws IllegalAccessException, InvocationTargetException {
         if (userId == null) return;
         // System.out.println("[CurrentUserCheckAspect.setUserId] userId =" + userId);
+=======
+>>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
         Object target = joinPoint.getTarget();
         // Get the method signature
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         // Get the method object
         Method method = signature.getMethod();
+<<<<<<< HEAD
         // Change the Parameter Value
         method.invoke(target, userId);
+=======
+        // Get the parameter annotations
+        Annotation[][] annotations = method.getParameterAnnotations();
+        // get Userid
+        long userId = getUserId();
+        // Iterate over the annotations
+        for (int i = 0; i < annotations.length; i++) {
+            for (Annotation annotation : annotations[i]) {
+                // Check if the annotation is @CurrentUser
+                if (annotation instanceof CurrentUser) {
+                    // Change the Parameter Value
+                    method.invoke(target, userId);
+                }
+            }
+        }
+
+        joinPoint.proceed();
+>>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
     }
 
     private static long getUserId() {
