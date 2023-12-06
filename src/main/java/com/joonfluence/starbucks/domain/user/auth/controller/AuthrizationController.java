@@ -5,6 +5,8 @@ import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUser;
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -21,7 +23,8 @@ public class AuthrizationController {
     private final AuthenticationService authenticationService;
 
     @GetMapping("/test")
-    public ResponseEntity<String> testGet(){
+    public ResponseEntity<String> testGet(@CurrentUser Long userId){
+        System.out.println("userId = " + userId);
         return ResponseEntity.status(200).body("Good");
     }
 
