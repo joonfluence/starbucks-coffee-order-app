@@ -68,8 +68,8 @@ public class JwtService {
                 .collect(Collectors.joining(","));
 
         // Access Token 생성
-        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
-        String refreshToken = buildToken(authentication, authorities, refreshTokenExpireTime);
+        String accessToken = generateAccessToken(authentication, authorities);
+        String refreshToken = gernerageRefreshToken(authentication, authorities);
 
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
@@ -77,9 +77,21 @@ public class JwtService {
                 .build();
     }
 
+    private String gernerageRefreshToken(Authentication authentication, String authorities) {
+        String refreshToken = buildToken(authentication, authorities, refreshTokenExpireTime);
+        return refreshToken;
+    }
+
+    private String generateAccessToken(Authentication authentication, String authorities) {
+        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
+        return accessToken;
+    }
+
     public AuthenticationResponse generateToken(Customer user) {
+        HashMap<String, Object> claimHashMap = new HashMap<>();
+        claimHashMap.put(AUTHORITIES_KEY, USER_ROLE.ROLE_USER);
         // Access Token 생성
-        String accessToken = buildToken(new HashMap<>(), user, accessTokenExpireTime);
+        String accessToken = buildToken(claimHashMap, user, accessTokenExpireTime);
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .build();
