@@ -1,10 +1,8 @@
 package com.joonfluence.starbucks.domain.user.customer.aop;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.security.core.Authentication;
@@ -12,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
@@ -26,32 +25,25 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class CurrentUserCheckAspect {
-    @Pointcut("execution(* com.joonfluence.starbucks..*(..)) && @annotation(com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck)")
+    @Pointcut("@annotation(com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck)")
     private void currentUserCheck() {}
 
     @Around("currentUserCheck()")
     public void execute(ProceedingJoinPoint joinPoint) throws Throwable {
+        setUserId(joinPoint, getUserId());
+        joinPoint.proceed();
+    }
+
+    private static void setUserId(ProceedingJoinPoint joinPoint, Long userId) throws IllegalAccessException, InvocationTargetException {
+        if (userId == null) return;
+        // System.out.println("[CurrentUserCheckAspect.setUserId] userId =" + userId);
         Object target = joinPoint.getTarget();
         // Get the method signature
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         // Get the method object
         Method method = signature.getMethod();
-        // Get the parameter annotations
-        Annotation[][] annotations = method.getParameterAnnotations();
-        // get Userid
-        long userId = getUserId();
-        // Iterate over the annotations
-        for (int i = 0; i < annotations.length; i++) {
-            for (Annotation annotation : annotations[i]) {
-                // Check if the annotation is @CurrentUser
-                if (annotation instanceof CurrentUser) {
-                    // Change the Parameter Value
-                    method.invoke(target, userId);
-                }
-            }
-        }
-
-        joinPoint.proceed();
+        // Change the Parameter Value
+        method.invoke(target, userId);
     }
 
     private static long getUserId() {

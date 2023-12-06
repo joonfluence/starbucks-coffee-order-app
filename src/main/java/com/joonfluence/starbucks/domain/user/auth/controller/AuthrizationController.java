@@ -25,6 +25,7 @@ public class AuthrizationController {
     @GetMapping("/test")
     @CurrentUserCheck
     public ResponseEntity<String> testGet(@CurrentUser Long userId){
+        System.out.println("[AuthrizationController.testGet] userId = " + userId);
         return ResponseEntity.status(200).body("Good");
     }
 
