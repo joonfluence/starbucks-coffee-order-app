@@ -47,16 +47,23 @@ public class AuthrizationController {
     private final AuthenticationService authenticationService;
 
     @GetMapping("/test")
+<<<<<<< HEAD
     @CurrentUserCheck
     public ResponseEntity<String> testGet(@CurrentUser Long userId){
 <<<<<<< HEAD
 <<<<<<< HEAD
         System.out.println("[AuthrizationController.testGet] userId = " + userId);
 =======
+<<<<<<< HEAD
 >>>>>>> 0dbc7f4 (feat(Auth) : AOP 활용하여 로그인한 User Id 확인)
 =======
         System.out.println("[AuthrizationController.testGet] userId = " + userId);
 >>>>>>> 25f8286 (refactor(Auth) : AOP 활용하여 로그인한 User Id 확인)
+=======
+    public ResponseEntity<String> testGet(@CurrentUser Long userId){
+        System.out.println("userId = " + userId);
+>>>>>>> b8c079e (fix(Auth) : RefreshToken으로 재발급한 AccessToken 사용 시, 권한 없음 에러 발생됨)
+>>>>>>> 4fe5e30 (fix(Auth) : RefreshToken으로 재발급한 AccessToken 사용 시, 권한 없음 에러 발생됨)
         return ResponseEntity.status(200).body("Good");
     }
 

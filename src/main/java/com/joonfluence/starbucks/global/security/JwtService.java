@@ -81,16 +81,42 @@ public class JwtService {
                 .collect(Collectors.joining(","));
         // Access Token 생성
         String accessToken = generateAccessToken(authentication, authorities);
+<<<<<<< HEAD
         String refreshToken = refreshTokenService.generateRefreshToken();
+=======
+        String refreshToken = gernerageRefreshToken(authentication, authorities);
+
+>>>>>>> b8c079e (fix(Auth) : RefreshToken으로 재발급한 AccessToken 사용 시, 권한 없음 에러 발생됨)
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .refreshTokenUUid(refreshToken)
                 .build();
     }
 
+<<<<<<< HEAD
     private String generateAccessToken(Authentication authentication, String authorities) {
         String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
         return accessToken;
+=======
+    private String gernerageRefreshToken(Authentication authentication, String authorities) {
+        String refreshToken = buildToken(authentication, authorities, refreshTokenExpireTime);
+        return refreshToken;
+    }
+
+    private String generateAccessToken(Authentication authentication, String authorities) {
+        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
+        return accessToken;
+    }
+
+    public AuthenticationResponse generateToken(Customer user) {
+        HashMap<String, Object> claimHashMap = new HashMap<>();
+        claimHashMap.put(AUTHORITIES_KEY, USER_ROLE.ROLE_USER);
+        // Access Token 생성
+        String accessToken = buildToken(claimHashMap, user, accessTokenExpireTime);
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .build();
+>>>>>>> b8c079e (fix(Auth) : RefreshToken으로 재발급한 AccessToken 사용 시, 권한 없음 에러 발생됨)
     }
 
     public Authentication getAuthentication(String accessToken) {
