@@ -1,5 +1,6 @@
 package com.joonfluence.starbucks.domain.user.customer.entity;
 
+import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import jakarta.persistence.Id;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Customer {
+public class Customer extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
