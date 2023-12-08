@@ -93,9 +93,12 @@ class AuthenticationServiceTest {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
+=======
+>>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
 =======
 >>>>>>> edd2b22 ([FEAT] 회원가입 기능 구현)
 =======
@@ -113,7 +116,12 @@ class AuthenticationServiceTest {
 =======
 =======
 >>>>>>> 633b215 (fix(Auth) : Customer Repository 테스트 (2))
+<<<<<<< HEAD
 >>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
+=======
+=======
+>>>>>>> 35f57cc (fix(Auth) : Customer Repository 테스트 (2))
+>>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
     @BeforeEach
     public void init(){
         registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();

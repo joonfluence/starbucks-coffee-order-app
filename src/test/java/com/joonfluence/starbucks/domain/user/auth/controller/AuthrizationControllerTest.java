@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
 =======
 <<<<<<< HEAD
@@ -11,6 +12,8 @@ import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
 =======
 =======
 >>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
+=======
+>>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
 <<<<<<< HEAD
 =======
 import com.joonfluence.starbucks.MockSpringSecurityFilter;
@@ -21,7 +24,13 @@ import com.joonfluence.starbucks.MockSpringSecurityFilter;
 =======
 import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
 >>>>>>> 633b215 (fix(Auth) : Customer Repository 테스트 (2))
+<<<<<<< HEAD
 >>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
+=======
+=======
+import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
+>>>>>>> 35f57cc (fix(Auth) : Customer Repository 테스트 (2))
+>>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;

@@ -57,8 +57,11 @@ class CustomerRepositoryTest {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
+=======
+>>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
         dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
@@ -73,7 +76,15 @@ class CustomerRepositoryTest {
 >>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
 =======
 >>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+<<<<<<< HEAD
 >>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
+=======
+=======
+        Double random = Math.random();
+        String userId = "joonluence.dev" + random.toString() + "@gmail.com";
+        dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
+>>>>>>> 35f57cc (fix(Auth) : Customer Repository 테스트 (2))
+>>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
         newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
     }
 
