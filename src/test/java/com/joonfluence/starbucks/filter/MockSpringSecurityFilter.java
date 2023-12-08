@@ -1,4 +1,4 @@
-package com.joonfluence.starbucks;
+package com.joonfluence.starbucks.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;

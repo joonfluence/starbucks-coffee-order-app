@@ -1,7 +1,7 @@
 package com.joonfluence.starbucks.domain.user.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joonfluence.starbucks.MockSpringSecurityFilter;
+import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
@@ -9,7 +9,6 @@ import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.global.security.JwtAuthenticationFilter;
-import com.joonfluence.starbucks.global.security.JwtService;
 import com.joonfluence.starbucks.global.security.SecurityConfiguration;
 import com.joonfluence.starbucks.global.security.UserDetailsImpl;
 import org.hamcrest.CoreMatchers;

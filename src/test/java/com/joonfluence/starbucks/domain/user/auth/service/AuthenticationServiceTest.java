@@ -46,7 +46,6 @@ class AuthenticationServiceTest {
     private LoginRequest loginRequest;
     private AuthenticationResponse response;
 
-
     @BeforeEach
     public void init(){
         registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
