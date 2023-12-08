@@ -9,9 +9,12 @@ import org.springframework.test.context.ActiveProfiles;
 =======
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 
+=======
+>>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
 import java.util.NoSuchElementException;
 
 @DataJpaTest
