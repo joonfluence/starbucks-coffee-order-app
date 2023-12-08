@@ -33,12 +33,18 @@ class CustomerRepositoryTest {
     @BeforeAll
     public static void init(){
 <<<<<<< HEAD
+<<<<<<< HEAD
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
         dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
 =======
         dbInsertedUser = Customer.builder().name("Junho").email("joonfluence.dev@gmail.com").password("12341234").build();
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
+=======
+        Double random = Math.random();
+        String userId = "joonluence.dev" + random.toString() + "@gmail.com";
+        dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
+>>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
         newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
     }
 

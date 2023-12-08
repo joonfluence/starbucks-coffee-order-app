@@ -3,16 +3,25 @@ package com.joonfluence.starbucks.domain.user.auth.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
 =======
 <<<<<<< HEAD
 >>>>>>> 609dc55 ([FEAT] 회원가입 기능 구현)
 =======
+=======
+>>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
 <<<<<<< HEAD
 =======
 import com.joonfluence.starbucks.MockSpringSecurityFilter;
 >>>>>>> e6bf88f (fix(Auth) : Customer Repository 테스트)
+<<<<<<< HEAD
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+=======
+import com.joonfluence.starbucks.filter.MockSpringSecurityFilter;
+>>>>>>> 633b215 (fix(Auth) : Customer Repository 테스트 (2))
+>>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
@@ -21,9 +30,12 @@ import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.global.security.JwtAuthenticationFilter;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.joonfluence.starbucks.global.security.JwtService;
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+>>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
 import com.joonfluence.starbucks.global.security.SecurityConfiguration;
 import com.joonfluence.starbucks.global.security.UserDetailsImpl;
 import org.hamcrest.CoreMatchers;
