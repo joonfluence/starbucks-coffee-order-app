@@ -12,7 +12,7 @@ spring:
     password:
   jpa:
     hibernate: # hibernate 사용 설정
-      ddl-auto: create
+      ddl-auto: create-drop
     properties: # property 사용 설정
       hibernate: # hibernate property 설정
         show-sql: true
