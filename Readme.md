@@ -44,6 +44,14 @@
 
 (추가 예정)
 
+# 브랜치 관리 전략
+
+- git flow 준수
+  - master
+  - develop
+  - feature
+    - order, order-auth 등 기능 단위로 브랜치 관리
+
 # 기술스택
 
 - Spring, Spring Boot, Spring MSA, Spring Data JPA, QueryDSL, MySQL, Redis, Nginx, Docker, Jenkins, Grafana, Micrometer
