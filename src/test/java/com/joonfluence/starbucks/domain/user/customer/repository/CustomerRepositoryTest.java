@@ -3,13 +3,23 @@ package com.joonfluence.starbucks.domain.user.customer.repository;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
+=======
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
+>>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 
 import java.util.NoSuchElementException;
 
 @DataJpaTest
+<<<<<<< HEAD
 @ActiveProfiles("test")
+=======
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+>>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 class CustomerRepositoryTest {
 
     @Autowired
@@ -19,9 +29,13 @@ class CustomerRepositoryTest {
 
     @BeforeAll
     public static void init(){
+<<<<<<< HEAD
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
         dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
+=======
+        dbInsertedUser = Customer.builder().name("Junho").email("joonfluence.dev@gmail.com").password("12341234").build();
+>>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
         newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
     }
 
