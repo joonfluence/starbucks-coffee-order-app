@@ -45,15 +45,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 =======
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+<<<<<<< HEAD
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 =======
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+>>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
@@ -92,7 +99,11 @@ import java.util.UUID;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
+<<<<<<< HEAD
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+<<<<<<< HEAD
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
 @WebMvcTest(
         controllers = {AuthrizationController.class},
         excludeFilters = {
@@ -108,12 +119,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 =======
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(AuthrizationController.class)
+<<<<<<< HEAD
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 =======
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
 =======
 @ActiveProfiles("test")
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+>>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
 class AuthrizationControllerTest {
     private MockMvc mockMvc;
     @MockBean

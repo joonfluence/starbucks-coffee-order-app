@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 
@@ -25,13 +26,25 @@ import java.util.NoSuchElementException;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 =======
+=======
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
 import org.springframework.test.context.ActiveProfiles;
+=======
+import org.springframework.dao.DataIntegrityViolationException;
+>>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
 
 import java.util.NoSuchElementException;
 
 @DataJpaTest
+<<<<<<< HEAD
 @ActiveProfiles("test")
+<<<<<<< HEAD
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+=======
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+>>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
 class CustomerRepositoryTest {
 
     @Autowired
@@ -43,17 +56,24 @@ class CustomerRepositoryTest {
     public static void init(){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
         dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
 =======
         dbInsertedUser = Customer.builder().name("Junho").email("joonfluence.dev@gmail.com").password("12341234").build();
+<<<<<<< HEAD
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 =======
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
         dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
 >>>>>>> 2ed1c99 (fix(Auth) : Customer Repository 테스트 (2))
+=======
+>>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+>>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
         newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
     }
 
