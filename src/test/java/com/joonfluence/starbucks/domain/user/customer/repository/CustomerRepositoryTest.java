@@ -18,7 +18,9 @@ class CustomerRepositoryTest {
 
     @BeforeAll
     public static void init(){
-        dbInsertedUser = Customer.builder().name("Junho").email("joonfluence.dev@gmail.com").password("12341234").build();
+        Double random = Math.random();
+        String userId = "joonluence.dev" + random.toString() + "@gmail.com";
+        dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
         newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
     }
 
