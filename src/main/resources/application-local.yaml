@@ -20,6 +20,13 @@ spring:
   logging:
     level:
       org.hibernate.SQL: debug
+  redis:
+    host: localhost
+    port: 6379
 h2:
   console:
     enabled: true
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}

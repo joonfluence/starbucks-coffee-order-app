@@ -2,7 +2,6 @@ package com.joonfluence.starbucks.global.exception;
 
 import com.joonfluence.starbucks.domain.user.auth.exception.DuplicateUserEmailException;
 import com.joonfluence.starbucks.global.dto.ErrorResponse;
-import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
