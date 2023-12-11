@@ -60,9 +60,13 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.test.context.ActiveProfiles;
 =======
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+import org.springframework.test.context.ActiveProfiles;
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -72,6 +76,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.security.Principal;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
@@ -80,6 +85,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 <<<<<<< HEAD
 =======
+=======
+import java.util.UUID;
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -95,6 +103,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
         }
 )
 <<<<<<< HEAD
+<<<<<<< HEAD
 @ActiveProfiles("test")
 =======
 @AutoConfigureMockMvc(addFilters = false)
@@ -102,6 +111,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 =======
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+@ActiveProfiles("test")
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 class AuthrizationControllerTest {
     private MockMvc mockMvc;
     @MockBean
@@ -173,6 +185,7 @@ class AuthrizationControllerTest {
 =======
 >>>>>>> e6bf88f (fix(Auth) : Customer Repository 테스트)
     private ObjectMapper objectMapper;
+
 
     private RegisterRequest registerRequestDto;
     private RegisterRequest notEnoughInfoRegisterRequestDto;

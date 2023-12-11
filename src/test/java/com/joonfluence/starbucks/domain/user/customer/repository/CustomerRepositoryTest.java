@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 
@@ -23,6 +24,14 @@ import java.util.NoSuchElementException;
 =======
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
+=======
+import org.springframework.test.context.ActiveProfiles;
+
+import java.util.NoSuchElementException;
+
+@DataJpaTest
+@ActiveProfiles("test")
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 class CustomerRepositoryTest {
 
     @Autowired

@@ -123,8 +123,11 @@ class AuthenticationServiceTest {
 <<<<<<< HEAD
         loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("12341234").passwordRepeated("12341234").build();
 <<<<<<< HEAD
+<<<<<<< HEAD
         response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshTokenUUid(UUID.randomUUID().toString()).build();
 =======
+=======
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
         response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAyMjkxNjA0fQ.G5xYWiC8xN5vhZtT_QQ_wEk8_y0SAsmODF2oqLC7KS-JEjvKPYKYIiv6GUf4b1tlfT4fOYDblvDuwFaQJNygxA").build();
 <<<<<<< HEAD
 =======
@@ -140,7 +143,13 @@ class AuthenticationServiceTest {
 =======
 =======
 >>>>>>> 8827480 (test(Auth) : Mockito로 로그인 기능 테스트)
+<<<<<<< HEAD
 >>>>>>> 3613cf4 (test(Auth) : Mockito로 로그인 기능 테스트)
+=======
+=======
+        response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshTokenUUid(UUID.randomUUID().toString()).build();
+>>>>>>> 65b46f1 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
     }
 
     @DisplayName("1. 사용자가 회원가입에 필요한 정보를 입력했을 때, 정상 가입되어야 한다.")
@@ -178,8 +187,11 @@ class AuthenticationServiceTest {
         Assertions.assertNotNull(authenticationResponse);
         Assertions.assertNotNull(authenticationResponse.getAccessToken());
 <<<<<<< HEAD
+<<<<<<< HEAD
         Assertions.assertNotNull(authenticationResponse.getRefreshTokenUUid());
 =======
+=======
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
         Assertions.assertNotNull(authenticationResponse.getRefreshToken());
 =======
     @DisplayName("2. 사용자가 로그인에 필요한 정보를 입력했을 때, 정상 로그인(토큰 반환) 되어야 한다.")
@@ -208,6 +220,12 @@ class AuthenticationServiceTest {
         Assertions.assertNotNull(authenticationResponse.getAccessToken());
         Assertions.assertNotNull(authenticationResponse.getRefreshToken());
 >>>>>>> 8827480 (test(Auth) : Mockito로 로그인 기능 테스트)
+<<<<<<< HEAD
 >>>>>>> 3613cf4 (test(Auth) : Mockito로 로그인 기능 테스트)
+=======
+=======
+        Assertions.assertNotNull(authenticationResponse.getRefreshTokenUUid());
+>>>>>>> 65b46f1 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
     }
 }

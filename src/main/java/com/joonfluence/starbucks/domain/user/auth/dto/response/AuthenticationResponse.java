@@ -16,11 +16,20 @@ public class AuthenticationResponse {
     private String accessToken;
     @JsonProperty("refresh_token")
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String refreshTokenUUid;
 =======
+=======
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
     private String refreshToken;
 =======
 public class AuthenticationResponse {
 >>>>>>> 806e707 ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
+<<<<<<< HEAD
 >>>>>>> 4fad24b ([FEAT] Jwt Util 함수 구현 및 JwtAuthenticationFilter 적용)
+=======
+=======
+    private String refreshTokenUUid;
+>>>>>>> 65b46f1 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 }
