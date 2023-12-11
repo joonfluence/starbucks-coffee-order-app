@@ -8,14 +8,19 @@ spring:
   logging:
     level:
       org.hibernate.SQL: debug
+  data:
+    redis:
+      repositories:
+        enabled: true
+    jpa:
+      repositories:
+        bootstrap-mode: default
 h2:
   console:
     enabled: true
-
 application:
   security:
     jwt:
-      secret-key: ${JWT_SECRET_KEY}
       expiration: 1800000 # 30 min
       refresh-token:
         expiration: 604800000 # 7 days

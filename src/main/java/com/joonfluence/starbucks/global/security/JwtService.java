@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.global.security;
 
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
+import com.joonfluence.starbucks.domain.user.auth.service.RefreshTokenService;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -15,6 +16,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.security.Key;
@@ -25,18 +27,18 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class JwtService {
+    private final RefreshTokenService refreshTokenService;
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_PREFIX = "Bearer ";
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
     private final long accessTokenExpireTime; // 30분
-    private final long refreshTokenExpireTime;  // 7일
     private final Key key;
 
-    public JwtService(@Value("${application.security.jwt.secret-key}") String secretKey, @Value("${application.security.jwt.expiration}") long accessTokenExpireTime, @Value("${application.security.jwt.refresh-token.expiration}") long refreshTokenExpireTime) {
-        key = getSignInKey(secretKey);
+    public JwtService(RefreshTokenService refreshTokenService, @Value("${application.security.jwt.secret-key}") String secretKey, @Value("${application.security.jwt.expiration}") long accessTokenExpireTime) {
+        this.refreshTokenService = refreshTokenService;
+        this.key = getSignInKey(secretKey);
         this.accessTokenExpireTime = accessTokenExpireTime;
-        this.refreshTokenExpireTime = refreshTokenExpireTime;
     }
 
     /*
@@ -61,32 +63,6 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public AuthenticationResponse generateToken(Authentication authentication) {
-        // 권한들 가져오기
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
-
-        // Access Token 생성
-        String accessToken = generateAccessToken(authentication, authorities);
-        String refreshToken = gernerageRefreshToken(authentication, authorities);
-
-        return AuthenticationResponse.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
-
-    private String gernerageRefreshToken(Authentication authentication, String authorities) {
-        String refreshToken = buildToken(authentication, authorities, refreshTokenExpireTime);
-        return refreshToken;
-    }
-
-    private String generateAccessToken(Authentication authentication, String authorities) {
-        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
-        return accessToken;
-    }
-
     public AuthenticationResponse generateToken(Customer user) {
         HashMap<String, Object> claimHashMap = new HashMap<>();
         claimHashMap.put(AUTHORITIES_KEY, USER_ROLE.ROLE_USER);
@@ -95,6 +71,26 @@ public class JwtService {
         return AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .build();
+    }
+
+    @Transactional
+    public AuthenticationResponse generateToken(Authentication authentication) {
+        // 권한들 가져오기
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        // Access Token 생성
+        String accessToken = generateAccessToken(authentication, authorities);
+        String refreshToken = refreshTokenService.generateRefreshToken();
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshTokenUUid(refreshToken)
+                .build();
+    }
+
+    private String generateAccessToken(Authentication authentication, String authorities) {
+        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
+        return accessToken;
     }
 
     public Authentication getAuthentication(String accessToken) {
@@ -162,5 +158,9 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration)) // payload "exp": 1516239022 (예시)
                 .signWith(key, SignatureAlgorithm.HS512) // header "alg": "HS512"
                 .compact();
+    }
+
+    public void validateRefreshToken(String uuid) {
+        refreshTokenService.checkRefreshToken(uuid);
     }
 }

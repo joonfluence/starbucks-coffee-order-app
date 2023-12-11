@@ -22,6 +22,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -30,6 +31,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.security.Principal;
+import java.util.UUID;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -43,6 +45,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
                 )
         }
 )
+@ActiveProfiles("test")
 class AuthrizationControllerTest {
     private MockMvc mockMvc;
     @MockBean
@@ -52,6 +55,7 @@ class AuthrizationControllerTest {
     private WebApplicationContext context;
     @Autowired
     private ObjectMapper objectMapper;
+
 
     private RegisterRequest registerRequestDto;
     private RegisterRequest notEnoughInfoRegisterRequestDto;
@@ -73,7 +77,7 @@ class AuthrizationControllerTest {
         UserDetailsImpl testUserDetails = new UserDetailsImpl(registerRequestDto.toEntity());
         mockPrincipal = new UsernamePasswordAuthenticationToken(testUserDetails, "", testUserDetails.getAuthorities());
         loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("!abcd1234").passwordRepeated("!abcd1234").build();
-        response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAyMjkxNjA0fQ.G5xYWiC8xN5vhZtT_QQ_wEk8_y0SAsmODF2oqLC7KS-JEjvKPYKYIiv6GUf4b1tlfT4fOYDblvDuwFaQJNygxA").build();
+        response = AuthenticationResponse.builder().accessToken("eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwic3ViIjoiNyIsImlhdCI6MTcwMTY4NjgwNCwiZXhwIjoxNzAxNjg4NjA0fQ.VlSs4U8ferPP8Uh5QmumVmeO_OgRMwk8YK7_lSOAY5kFY3Hos1u14FvQNQQ3b_spTLSpsZOYOx7Rx5tgBL-95Q").refreshTokenUUid(UUID.randomUUID().toString()).build();
     }
 
     @DisplayName("1. 사용자가 회원가입에 정보를 입력했을 때, 정상 가입되어야 한다.")

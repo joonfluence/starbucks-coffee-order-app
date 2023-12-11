@@ -16,7 +16,7 @@ import jakarta.persistence.Id;
 public class Customer extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "customer_id", nullable = false)
     private Long id;
     private String name;
 
