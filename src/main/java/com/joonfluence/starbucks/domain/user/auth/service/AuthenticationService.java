@@ -3,6 +3,7 @@ package com.joonfluence.starbucks.domain.user.auth.service;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
 =======
 <<<<<<< HEAD
@@ -11,11 +12,19 @@ import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenReque
 <<<<<<< HEAD
 >>>>>>> 609dc55 ([FEAT] 회원가입 기능 구현)
 =======
+=======
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 <<<<<<< HEAD
 =======
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
 >>>>>>> 65b46f1 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+<<<<<<< HEAD
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+=======
+import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.global.security.JwtService;
 =======
@@ -144,11 +153,9 @@ public class AuthenticationService {
         return jwtService.generateToken(authentication);
     }
 
-    public AuthenticationResponse refreshToken(HttpServletRequest request) {
-        String resolveToken = jwtService.resolveToken(request);
-        String userEmail = jwtService.extractUsername(resolveToken);
-        Customer customer = repository.findById(Long.parseLong(userEmail)).orElseThrow();
-        jwtService.validateToken(resolveToken);
+    public AuthenticationResponse refreshToken(RefreshTokenRequestDto dto) {
+        refreshTokenService.checkRefreshToken(dto.getRefreshToken());
+        Customer customer = repository.findByEmail(dto.getUserEmail()).orElseThrow(() -> new NoSuchElementException("그런 유저는 없습니다"));
         return jwtService.generateToken(customer);
     }
 

@@ -12,11 +12,14 @@ import com.joonfluence.starbucks.global.dto.GlobalResponse;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 0c33959 (feat(Auth) : 리프레쉬 토큰 및 토큰 Response 구현)
 =======
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 <<<<<<< HEAD
 import jakarta.servlet.http.HttpServletRequest;
 =======
@@ -32,7 +35,12 @@ import jakarta.servlet.http.HttpServletRequest;
 =======
 =======
 >>>>>>> 65b46f1 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+<<<<<<< HEAD
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+=======
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -106,12 +114,15 @@ public class AuthrizationController {
     @PostMapping("/refresh-token")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ResponseEntity<GlobalResponse<AuthenticationResponse>> refreshToken(@RequestBody RefreshTokenRequestDto dto) throws IOException {
         AuthenticationResponse tokenDto = authenticationService.refreshToken(dto);
         return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>(200, tokenDto, "액세스 토큰 발급에 성공하였습니다."));
 =======
 =======
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
     public ResponseEntity<GlobalResponse<AuthenticationResponse>> refreshToken(HttpServletRequest request) throws IOException {
         AuthenticationResponse authenticationResponse = authenticationService.refreshToken(request);
         return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>(200, authenticationResponse, "로그인에 성공하였습니다."));
@@ -146,6 +157,11 @@ public class AuthrizationController {
     public ResponseEntity<GlobalResponse<AuthenticationResponse>> refreshToken(HttpServletRequest request) throws IOException {
         AuthenticationResponse authenticationResponse = authenticationService.refreshToken(request);
         return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>(200, authenticationResponse, "로그인에 성공하였습니다."));
+=======
+    public ResponseEntity<GlobalResponse<AuthenticationResponse>> refreshToken(@RequestBody RefreshTokenRequestDto dto) throws IOException {
+        AuthenticationResponse tokenDto = authenticationService.refreshToken(dto);
+        return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>(200, tokenDto, "액세스 토큰 발급에 성공하였습니다."));
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
     }
 >>>>>>> 8d31ae2 (feat(Auth) : 리프레쉬 토큰 및 토큰 Response 구현)
 }

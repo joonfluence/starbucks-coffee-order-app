@@ -63,6 +63,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
+<<<<<<< HEAD
     public AuthenticationResponse generateToken(Customer user) {
         HashMap<String, Object> claimHashMap = new HashMap<>();
         claimHashMap.put(AUTHORITIES_KEY, USER_ROLE.ROLE_USER);
@@ -108,6 +109,8 @@ public class JwtService {
         return accessToken;
     }
 
+=======
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
     public AuthenticationResponse generateToken(Customer user) {
         HashMap<String, Object> claimHashMap = new HashMap<>();
         claimHashMap.put(AUTHORITIES_KEY, USER_ROLE.ROLE_USER);
@@ -117,6 +120,26 @@ public class JwtService {
                 .accessToken(accessToken)
                 .build();
 >>>>>>> b8c079e (fix(Auth) : RefreshToken으로 재발급한 AccessToken 사용 시, 권한 없음 에러 발생됨)
+    }
+
+    @Transactional
+    public AuthenticationResponse generateToken(Authentication authentication) {
+        // 권한들 가져오기
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        // Access Token 생성
+        String accessToken = generateAccessToken(authentication, authorities);
+        String refreshToken = refreshTokenService.generateRefreshToken();
+        return AuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshTokenUUid(refreshToken)
+                .build();
+    }
+
+    private String generateAccessToken(Authentication authentication, String authorities) {
+        String accessToken = buildToken(authentication, authorities, accessTokenExpireTime);
+        return accessToken;
     }
 
     public Authentication getAuthentication(String accessToken) {

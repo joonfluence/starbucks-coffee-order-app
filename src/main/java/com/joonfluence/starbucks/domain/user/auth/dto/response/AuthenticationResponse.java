@@ -17,10 +17,13 @@ public class AuthenticationResponse {
     @JsonProperty("refresh_token")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private String refreshTokenUUid;
 =======
 =======
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
     private String refreshToken;
 =======
 public class AuthenticationResponse {
@@ -31,5 +34,11 @@ public class AuthenticationResponse {
 =======
     private String refreshTokenUUid;
 >>>>>>> 65b46f1 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+<<<<<<< HEAD
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+=======
+    private String refreshTokenUUid;
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 }

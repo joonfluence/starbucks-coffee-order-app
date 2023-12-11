@@ -125,6 +125,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 <<<<<<< HEAD
 <<<<<<< HEAD
 @ActiveProfiles("test")
+<<<<<<< HEAD
 =======
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(AuthrizationController.class)
@@ -137,7 +138,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 =======
 >>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+<<<<<<< HEAD
 >>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
+=======
+=======
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 class AuthrizationControllerTest {
     private MockMvc mockMvc;
     @MockBean

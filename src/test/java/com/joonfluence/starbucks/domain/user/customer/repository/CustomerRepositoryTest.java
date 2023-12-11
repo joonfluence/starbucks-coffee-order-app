@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 >>>>>>> e15a14e (test(Auth) : Customer Repository 테스트)
 
@@ -28,14 +29,20 @@ import java.util.NoSuchElementException;
 =======
 =======
 >>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
+=======
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 import org.springframework.test.context.ActiveProfiles;
 =======
 import org.springframework.dao.DataIntegrityViolationException;
 >>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+=======
+import org.springframework.test.context.ActiveProfiles;
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 
 import java.util.NoSuchElementException;
 
 @DataJpaTest
+<<<<<<< HEAD
 <<<<<<< HEAD
 @ActiveProfiles("test")
 <<<<<<< HEAD
@@ -44,7 +51,13 @@ import java.util.NoSuchElementException;
 =======
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 >>>>>>> 3df7dc8 (test(Auth) : Customer Repository 테스트)
+<<<<<<< HEAD
 >>>>>>> 6167229 (test(Auth) : Customer Repository 테스트)
+=======
+=======
+@ActiveProfiles("test")
+>>>>>>> c8aa812 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+>>>>>>> c7ac17d (feat(Auth) : Redis에 RefreshToken 정보 저장)
 class CustomerRepositoryTest {
 
     @Autowired
