@@ -20,12 +20,15 @@ class RefreshTokenRepositoryTest {
     RefreshTokenRepository repository;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @BeforeEach
     void setUp() {
     }
 
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
+=======
+>>>>>>> b211f2e (test(Auth) : 회원가입 통합테스트)
     @DisplayName("생성된 Repository RefreshToken 값과 조회된 값은 서로 일치해야 한다.")
     @Test
     void test(){

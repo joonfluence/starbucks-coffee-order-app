@@ -4,10 +4,13 @@ import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 =======
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+=======
+>>>>>>> b211f2e (test(Auth) : 회원가입 통합테스트)
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 <<<<<<< HEAD
 <<<<<<< HEAD

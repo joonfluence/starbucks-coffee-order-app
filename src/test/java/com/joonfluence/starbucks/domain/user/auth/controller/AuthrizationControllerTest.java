@@ -96,6 +96,7 @@ import java.security.Principal;
 import java.util.UUID;
 
 import static org.mockito.BDDMockito.given;
+<<<<<<< HEAD
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -105,6 +106,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import java.util.UUID;
 >>>>>>> 3d44ca5 (feat(Auth) : Redis에 RefreshToken 정보 저장)
 
+=======
+>>>>>>> b211f2e (test(Auth) : 회원가입 통합테스트)
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -273,32 +276,35 @@ class AuthrizationControllerTest {
         // given : 사용자가 회원가입에 필요한 정보를 입력했을 때
         RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getName(), registerRequestDto.getEmail());
 <<<<<<< HEAD
+<<<<<<< HEAD
         given(authenticationService.register(registerRequestDto)).willReturn(responseDto);
 =======
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+        given(authenticationService.register(registerRequestDto)).willReturn(responseDto);
+>>>>>>> b211f2e (test(Auth) : 회원가입 통합테스트)
 
         // when
         ResultActions response = mockMvc.perform(post("/api/v1/auth/signUp")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(registerRequestDto)));
 
-        MvcResult result = mockMvc.perform(post("/api/v1/auth/signUp")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(registerRequestDto))).andReturn();
-
-        System.out.println("result.getResponse() = " + result.getResponse());;
-        System.out.println("result.getResponse().getContentAsString() = " + result.getResponse().getContentAsString());
-
         // then
         response.andExpect(MockMvcResultMatchers.status().isCreated())
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b211f2e (test(Auth) : 회원가입 통합테스트)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message", CoreMatchers.is("회원가입이 완료되었습니다.")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.userId", CoreMatchers.is(responseDto.getUserId().intValue())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.name", CoreMatchers.is(responseDto.getName())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data.email", CoreMatchers.is(responseDto.getEmail())));
+<<<<<<< HEAD
 =======
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message", CoreMatchers.is("회원가입이 완료되었습니다.")));
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)
+=======
+>>>>>>> b211f2e (test(Auth) : 회원가입 통합테스트)
     }
 
     @DisplayName("2. 사용자가 로그인에 필요한 정보를 입력했을 때, 정상 로그인(토큰 반환) 되어야 한다.")
