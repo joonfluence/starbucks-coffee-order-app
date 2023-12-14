@@ -19,10 +19,6 @@ class RefreshTokenRepositoryTest {
     @Autowired
     RefreshTokenRepository repository;
 
-    @BeforeEach
-    void setUp() {
-    }
-
     @DisplayName("생성된 Repository RefreshToken 값과 조회된 값은 서로 일치해야 한다.")
     @Test
     void test(){

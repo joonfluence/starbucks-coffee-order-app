@@ -33,6 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.security.Principal;
 import java.util.UUID;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -85,22 +86,19 @@ class AuthrizationControllerTest {
     void registered_when_user_submit_right_value() throws Exception {
         // given : 사용자가 회원가입에 필요한 정보를 입력했을 때
         RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getName(), registerRequestDto.getEmail());
+        given(authenticationService.register(registerRequestDto)).willReturn(responseDto);
 
         // when
         ResultActions response = mockMvc.perform(post("/api/v1/auth/signUp")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(registerRequestDto)));
 
-        MvcResult result = mockMvc.perform(post("/api/v1/auth/signUp")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(registerRequestDto))).andReturn();
-
-        System.out.println("result.getResponse() = " + result.getResponse());;
-        System.out.println("result.getResponse().getContentAsString() = " + result.getResponse().getContentAsString());
-
         // then
         response.andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message", CoreMatchers.is("회원가입이 완료되었습니다.")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", CoreMatchers.is("회원가입이 완료되었습니다.")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.userId", CoreMatchers.is(responseDto.getUserId().intValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.name", CoreMatchers.is(responseDto.getName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data.email", CoreMatchers.is(responseDto.getEmail())));
     }
 
     @DisplayName("2. 사용자가 로그인에 필요한 정보를 입력했을 때, 정상 로그인(토큰 반환) 되어야 한다.")
