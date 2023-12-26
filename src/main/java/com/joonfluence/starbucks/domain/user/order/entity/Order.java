@@ -17,8 +17,6 @@ public class Order extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private String name;
-    private int likeCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
@@ -44,11 +42,6 @@ public class Order extends BaseTimeEntity {
 
     public void updateCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public void update(Order order){
-        this.name = order.getName();
-        this.likeCount = order.getLikeCount();
     }
 
 }

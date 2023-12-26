@@ -7,13 +7,22 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
-@Entity
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.*;
+
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Entity
 public class Product extends BaseTimeEntity {
     @Id
     @GeneratedValue
     @Column(name = "product_id")
     private Long id;
+    private String name;
     private String description;
 
     @Enumerated(EnumType.STRING)

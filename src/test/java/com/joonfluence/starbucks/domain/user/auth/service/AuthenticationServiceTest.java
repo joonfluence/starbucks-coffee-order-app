@@ -124,8 +124,8 @@ class AuthenticationServiceTest {
 >>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
     @BeforeEach
     public void init(){
-        registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
-        blankRegisterRequestDto = RegisterRequest.builder().email("").name("Joonho").password("12341234").build();
+        registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").nickName("Joonho").password("!abcd1234").build();
+        blankRegisterRequestDto = RegisterRequest.builder().email("").nickName("Joonho").password("12341234").build();
         user = registerRequestDto.toEntity();
 <<<<<<< HEAD
 <<<<<<< HEAD

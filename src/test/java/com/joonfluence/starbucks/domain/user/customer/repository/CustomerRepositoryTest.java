@@ -80,6 +80,7 @@ class CustomerRepositoryTest {
 >>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
+<<<<<<< HEAD
         dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
 =======
         dbInsertedUser = Customer.builder().name("Junho").email("joonfluence.dev@gmail.com").password("12341234").build();
@@ -102,6 +103,10 @@ class CustomerRepositoryTest {
 >>>>>>> 35f57cc (fix(Auth) : Customer Repository 테스트 (2))
 >>>>>>> 48c3088 (fix(Auth) : Customer Repository 테스트 (2))
         newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
+=======
+        dbInsertedUser = Customer.builder().nickName("Junho").email(userId).password("12341234").build();
+        newUserRequest = Customer.builder().nickName("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
+>>>>>>> 9463c45 (test(Order) : 일반 주문 성공 테스트)
     }
 
     @BeforeEach
@@ -117,7 +122,7 @@ class CustomerRepositoryTest {
 
         // then
         Assertions.assertNotNull(saved);
-        Assertions.assertEquals(saved.getName(), newUserRequest.getName());
+        Assertions.assertEquals(saved.getNickName(), newUserRequest.getNickName());
         Assertions.assertEquals(saved.getPassword(), newUserRequest.getPassword());
     }
 
@@ -127,7 +132,7 @@ class CustomerRepositoryTest {
         // given & when
         Customer foundCustomer = repository.findById(dbInsertedUser.getId()).orElseThrow(() -> new NoSuchElementException("존재하지 않습니다"));
         // then
-        Assertions.assertEquals(foundCustomer.getName(), dbInsertedUser.getName());
+        Assertions.assertEquals(foundCustomer.getNickName(), dbInsertedUser.getNickName());
         Assertions.assertEquals(foundCustomer.getPassword(), dbInsertedUser.getPassword());
     }
 }

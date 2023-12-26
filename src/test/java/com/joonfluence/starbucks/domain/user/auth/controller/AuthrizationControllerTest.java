@@ -243,6 +243,7 @@ class AuthrizationControllerTest {
     }
 
     public void init(){
+<<<<<<< HEAD
         registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
         notEnoughInfoRegisterRequestDto = RegisterRequest.builder().email("").name("Joonho").password("12341234").build();
 <<<<<<< HEAD
@@ -262,6 +263,10 @@ class AuthrizationControllerTest {
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+=======
+        registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").nickName("Joonho").password("!abcd1234").build();
+        notEnoughInfoRegisterRequestDto = RegisterRequest.builder().email("").nickName("Joonho").password("12341234").build();
+>>>>>>> 9463c45 (test(Order) : 일반 주문 성공 테스트)
         UserDetailsImpl testUserDetails = new UserDetailsImpl(registerRequestDto.toEntity());
         mockPrincipal = new UsernamePasswordAuthenticationToken(testUserDetails, "", testUserDetails.getAuthorities());
 >>>>>>> e6bf88f (fix(Auth) : Customer Repository 테스트)
@@ -274,9 +279,13 @@ class AuthrizationControllerTest {
     @Test
     void registered_when_user_submit_right_value() throws Exception {
         // given : 사용자가 회원가입에 필요한 정보를 입력했을 때
+<<<<<<< HEAD
         RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getName(), registerRequestDto.getEmail());
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+        RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getNickName(), registerRequestDto.getEmail());
+>>>>>>> 7f03e85 (test(Order) : 일반 주문 성공 테스트)
         given(authenticationService.register(registerRequestDto)).willReturn(responseDto);
 =======
 >>>>>>> b7fd1df (fix(Auth) : Customer Repository 테스트)

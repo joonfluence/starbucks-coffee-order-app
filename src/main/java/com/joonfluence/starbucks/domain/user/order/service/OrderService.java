@@ -7,6 +7,7 @@ package com.joonfluence.starbucks.domain.user.order.service;
 import com.joonfluence.starbucks.domain.admin.product.entity.Product;
 import com.joonfluence.starbucks.domain.admin.product.exception.NoSuchProductException;
 import com.joonfluence.starbucks.domain.admin.product.repository.ProductRepository;
+import com.joonfluence.starbucks.domain.user.coupon.repository.CouponRepository;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.exception.NoSuchCustomerException;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
@@ -14,7 +15,6 @@ import com.joonfluence.starbucks.domain.user.order.dto.request.OrderRequestDto;
 <<<<<<< HEAD
 import com.joonfluence.starbucks.domain.user.order.entity.Order;
 import com.joonfluence.starbucks.domain.user.order.repository.OrderRepository;
-import com.joonfluence.starbucks.domain.user.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,21 +23,10 @@ public class OrderService {
     private final OrderRepository repository;
     private final ProductRepository productRepository;
     private final CustomerRepository customerRepository;
-    private final PaymentService paymentService;
+    private final CouponRepository couponRepository;
 
     @Transactional
-    public Long orderProduct(OrderRequestDto dto){
-        Long orderId = createOrder(dto);
-        paymentService.payOrder();
-        return orderId;
-    }
-
-    private void payOrder() {
-        return;
-    }
-
-    @Transactional
-    private Long createOrder(OrderRequestDto dto) {
+    public Order createOrder(OrderRequestDto dto) {
         Product product = findProductById(dto.getProductId());
         Customer customer = findCustomerById(dto.getCustomerId());
 
@@ -45,8 +34,7 @@ public class OrderService {
         orderEntity.updateProduct(product);
         orderEntity.updateCustomer(customer);
 
-        Order saved = repository.save(orderEntity);
-        return saved.getId();
+        return repository.save(orderEntity);
     }
 
     private Product findProductById(Long productId) {
