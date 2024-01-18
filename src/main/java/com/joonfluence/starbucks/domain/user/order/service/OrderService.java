@@ -13,6 +13,7 @@ import com.joonfluence.starbucks.domain.user.order.entity.OrderItemRepository;
 import com.joonfluence.starbucks.domain.user.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.joonfluence.starbucks.domain.user.payment.service.PaymentService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -56,14 +57,42 @@ public class OrderService {
         return repository.findById(orderId).get();
     }
 
-    private Product getProductById(Long productId) {
+    private final ProductRepository productRepository;
+    private final CustomerRepository customerRepository;
+    private final PaymentService paymentService;
+
+    @Transactional
+    public Long orderProduct(OrderRequestDto dto){
+        Long orderId = createOrder(dto);
+        paymentService.payOrder();
+        return orderId;
+    }
+
+    private void payOrder() {
+        return;
+    }
+
+    @Transactional
+    private Long createOrder(OrderRequestDto dto) {
+        Product product = findProductById(dto.getProductId());
+        Customer customer = findCustomerById(dto.getCustomerId());
+
+        Order orderEntity = dto.toEntity(dto);
+        orderEntity.updateProduct(product);
+        orderEntity.updateCustomer(customer);
+
+        Order saved = repository.save(orderEntity);
+        return saved.getId();
+    }
+
+    private Product findProductById(Long productId) {
         return productRepository.findById(productId).orElseThrow(() -> {
             throw new NoSuchProductException("해당 상품이 존재하지 않습니다");
         });
     }
 
-    private Customer getCustomer(OrderRequestDto dto) {
-        return customerRepository.findById(dto.getCustomerId()).orElseThrow(() -> {
+    private Customer findCustomerById(Long customerId) {
+        return customerRepository.findById(customerId).orElseThrow(() -> {
             throw new NoSuchCustomerException("해당 유저가 존재하지 않습니다");
         });
     }

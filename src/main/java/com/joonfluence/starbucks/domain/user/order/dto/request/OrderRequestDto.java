@@ -1,7 +1,6 @@
 package com.joonfluence.starbucks.domain.user.order.dto.request;
 
 import java.util.List;
-
 import com.joonfluence.starbucks.domain.user.order.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +18,6 @@ public class OrderRequestDto {
 
     public Order toEntity(OrderRequestDto dto){
         return Order.builder().build();
+
     }
 }

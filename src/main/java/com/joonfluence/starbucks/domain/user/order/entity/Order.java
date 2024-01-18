@@ -23,6 +23,9 @@ public class Order extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private OrderType orderType;
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Customer customer;
@@ -33,6 +36,11 @@ public class Order extends BaseTimeEntity {
 
     public void updateCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void update(Order order){
+        this.name = order.getName();
+        this.likeCount = order.getLikeCount();
     }
 
 }

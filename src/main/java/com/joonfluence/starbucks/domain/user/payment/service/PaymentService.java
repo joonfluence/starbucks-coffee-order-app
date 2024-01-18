@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class PaymentService {
     private final PaymentRepository repository;
 
-    @Transactional
     public void processPayment(PaymentRequestDto paymentRequestDto) {
         System.out.println("실제 결제하고 주문하는 과정을 처리한다");
     }
