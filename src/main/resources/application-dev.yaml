@@ -17,9 +17,16 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         show-sql: true
         format_sql: true
+  redis:
+    host: localhost
+    port: 6379
   logging:
     level:
       org.hibernate.SQL: debug
 h2:
   console:
     enabled: true
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}

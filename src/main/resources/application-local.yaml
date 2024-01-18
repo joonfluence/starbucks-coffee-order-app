@@ -12,7 +12,7 @@ spring:
     password:
   jpa:
     hibernate: # hibernate 사용 설정
-      ddl-auto: create
+      ddl-auto: create-drop
     properties: # property 사용 설정
       hibernate: # hibernate property 설정
         show-sql: true
@@ -20,6 +20,13 @@ spring:
   logging:
     level:
       org.hibernate.SQL: debug
+  redis:
+    host: localhost
+    port: 6379
 h2:
   console:
     enabled: true
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}

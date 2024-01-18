@@ -1,5 +1,7 @@
 package com.joonfluence.starbucks.domain.user.customer.controller;
 
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUser;
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
 import com.joonfluence.starbucks.global.dto.SuccessResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +12,15 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/api/v1/users/me")
 @RequiredArgsConstructor
 @RestController
 public class CustomerMeController {
     @PostMapping("/id/find")
-    public ResponseEntity<GlobalResponse> findId(){
+    @CurrentUserCheck
+    public ResponseEntity<GlobalResponse> findId(@CurrentUser Long userId){
         return ResponseEntity.status(200).body(new GlobalResponse(200, "findId에 성공하였습니다.", SuccessResponse.SUCCESS));
     }
 

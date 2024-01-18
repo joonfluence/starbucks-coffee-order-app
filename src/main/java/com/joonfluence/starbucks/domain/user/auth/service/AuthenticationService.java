@@ -1,5 +1,6 @@
 package com.joonfluence.starbucks.domain.user.auth.service;
 
+import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.global.security.JwtService;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
@@ -8,7 +9,6 @@ import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationRes
 import com.joonfluence.starbucks.domain.user.auth.exception.DuplicateUserEmailException;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,11 +18,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class AuthenticationService {
     private final CustomerRepository repository;
+    private final RefreshTokenService refreshTokenService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -41,11 +44,9 @@ public class AuthenticationService {
         return jwtService.generateToken(authentication);
     }
 
-    public AuthenticationResponse refreshToken(HttpServletRequest request) {
-        String resolveToken = jwtService.resolveToken(request);
-        String userEmail = jwtService.extractUsername(resolveToken);
-        Customer customer = repository.findById(Long.parseLong(userEmail)).orElseThrow();
-        jwtService.validateToken(resolveToken);
+    public AuthenticationResponse refreshToken(RefreshTokenRequestDto dto) {
+        refreshTokenService.checkRefreshToken(dto.getRefreshToken());
+        Customer customer = repository.findByEmail(dto.getUserEmail()).orElseThrow(() -> new NoSuchElementException("그런 유저는 없습니다"));
         return jwtService.generateToken(customer);
     }
 

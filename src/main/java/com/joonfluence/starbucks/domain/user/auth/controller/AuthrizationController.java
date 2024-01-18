@@ -3,10 +3,12 @@ package com.joonfluence.starbucks.domain.user.auth.controller;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.LoginRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.request.RegisterRequest;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.AuthenticationResponse;
+import com.joonfluence.starbucks.domain.user.auth.dto.response.RefreshTokenRequestDto;
 import com.joonfluence.starbucks.domain.user.auth.dto.response.RegisterResponse;
 import com.joonfluence.starbucks.domain.user.auth.service.AuthenticationService;
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUser;
+import com.joonfluence.starbucks.domain.user.customer.aop.CurrentUserCheck;
 import com.joonfluence.starbucks.global.dto.GlobalResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,9 @@ public class AuthrizationController {
     private final AuthenticationService authenticationService;
 
     @GetMapping("/test")
-    public ResponseEntity<String> testGet(){
+    @CurrentUserCheck
+    public ResponseEntity<String> testGet(@CurrentUser Long userId){
+        System.out.println("[AuthrizationController.testGet] userId = " + userId);
         return ResponseEntity.status(200).body("Good");
     }
 
@@ -38,8 +42,8 @@ public class AuthrizationController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<GlobalResponse<AuthenticationResponse>> refreshToken(HttpServletRequest request) throws IOException {
-        AuthenticationResponse authenticationResponse = authenticationService.refreshToken(request);
-        return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>(200, authenticationResponse, "로그인에 성공하였습니다."));
+    public ResponseEntity<GlobalResponse<AuthenticationResponse>> refreshToken(@RequestBody RefreshTokenRequestDto dto) throws IOException {
+        AuthenticationResponse tokenDto = authenticationService.refreshToken(dto);
+        return ResponseEntity.status(200).body(new GlobalResponse<AuthenticationResponse>(200, tokenDto, "액세스 토큰 발급에 성공하였습니다."));
     }
 }
