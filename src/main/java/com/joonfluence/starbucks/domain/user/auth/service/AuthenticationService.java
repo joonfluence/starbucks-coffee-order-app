@@ -36,7 +36,7 @@ public class AuthenticationService {
         Customer customer = request.toEntity();
         customer.updatePassword(passwordEncoder.encode(customer.getPassword()));
         Customer saved = repository.save(customer);
-        return new RegisterResponse(saved.getId(), saved.getName(), saved.getEmail());
+        return new RegisterResponse(saved.getId(), saved.getNickName(), saved.getEmail());
     }
 
     public AuthenticationResponse logIn(LoginRequest request) {
