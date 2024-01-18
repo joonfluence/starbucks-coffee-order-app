@@ -34,15 +34,22 @@
 9. 모니터링 (Grafana, Micrometer)
 10. 로깅 (MongoDB)
 
-(아키텍처 다이어그램 추가 예정) 
+- v1 (멀티모듈)
+
+![multimodule](./assets/diagram_v1.png)
+
+- v2 (MSA)
+
+![MSA](./assets/diagram_v2.png)
 
 # ERD 및 클래스 다이어그램
 
-(추가 예정)
+![ERD](./assets/erd_v1.png)
 
 # API 문서
 
-(추가 예정)
+서버 실행 후, 아래 URL 확인 
+[http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 # 브랜치 관리 전략
 
