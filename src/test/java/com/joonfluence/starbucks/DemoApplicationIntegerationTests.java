@@ -41,14 +41,14 @@ class DemoApplicationIntegerationTests {
 	}
 
 	public void init(){
-		registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
+		registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").nickName("Joonho").password("!abcd1234").build();
 	}
 
 	@DisplayName("회원가입을 진행할 때, 정상 가입되어야 한다.")
 	@Test
 	void test() throws Exception {
 		// given : 사용자가 회원가입에 필요한 정보를 입력했을 때
-		RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getName(), registerRequestDto.getEmail());
+		RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getNickName(), registerRequestDto.getEmail());
 
 		// when
 		ResultActions response = mockMvc.perform(post("/api/v1/auth/signUp")

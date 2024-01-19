@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.domain.user.payment.entity;
 
 import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
+import com.joonfluence.starbucks.domain.user.order.entity.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

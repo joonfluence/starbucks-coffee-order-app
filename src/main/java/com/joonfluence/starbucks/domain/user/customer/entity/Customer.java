@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.domain.user.customer.entity;
 
 import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
+import com.joonfluence.starbucks.global.security.USER_ROLE;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,8 +24,8 @@ public class Customer extends BaseTimeEntity {
     private Boolean pushNotificationOn;
     private Boolean locationServiceAgree;
 
-    // Order order;
-    // Delivery delivery;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     public void update(Customer customer){
         this.nickName = customer.getNickName();

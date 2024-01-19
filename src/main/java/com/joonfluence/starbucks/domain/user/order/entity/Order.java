@@ -1,10 +1,10 @@
 package com.joonfluence.starbucks.domain.user.order.entity;
 
-import com.joonfluence.starbucks.domain.admin.product.entity.Product;
 import com.joonfluence.starbucks.domain.model.BaseTimeEntity;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -15,14 +15,11 @@ import lombok.*;
 public class Order extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "order_id", nullable = false)
     private Long id;
-    private String name;
-    private int likeCount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -38,17 +35,7 @@ public class Order extends BaseTimeEntity {
         this.customer = customer;
     }
 
-    public void updateProduct(Product product) {
-        this.product = product;
-    }
-
     public void updateCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    public void update(Order order){
-        this.name = order.getName();
-        this.likeCount = order.getLikeCount();
-    }
-
 }

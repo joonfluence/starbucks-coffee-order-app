@@ -73,8 +73,8 @@ class AuthrizationControllerTest {
     }
 
     public void init(){
-        registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").name("Joonho").password("!abcd1234").build();
-        notEnoughInfoRegisterRequestDto = RegisterRequest.builder().email("").name("Joonho").password("12341234").build();
+        registerRequestDto = RegisterRequest.builder().email("joonfluence.dev@gmail.com").nickName("Joonho").password("!abcd1234").build();
+        notEnoughInfoRegisterRequestDto = RegisterRequest.builder().email("").nickName("Joonho").password("12341234").build();
         UserDetailsImpl testUserDetails = new UserDetailsImpl(registerRequestDto.toEntity());
         mockPrincipal = new UsernamePasswordAuthenticationToken(testUserDetails, "", testUserDetails.getAuthorities());
         loginRequest = LoginRequest.builder().email("joonfluence.dev@gmail.com").password("!abcd1234").passwordRepeated("!abcd1234").build();
@@ -85,7 +85,7 @@ class AuthrizationControllerTest {
     @Test
     void registered_when_user_submit_right_value() throws Exception {
         // given : 사용자가 회원가입에 필요한 정보를 입력했을 때
-        RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getName(), registerRequestDto.getEmail());
+        RegisterResponse responseDto = new RegisterResponse(1L, registerRequestDto.getNickName(), registerRequestDto.getEmail());
         given(authenticationService.register(registerRequestDto)).willReturn(responseDto);
 
         // when

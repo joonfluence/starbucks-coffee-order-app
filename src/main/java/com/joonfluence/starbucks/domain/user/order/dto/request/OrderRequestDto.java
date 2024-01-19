@@ -6,16 +6,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class OrderRequestDto {
     private Long customerId;
-    private Long productId;
-    private String name;
+    private List<Long> productIds;
+    private List<CouponProduct> couponProductList;
+    private Integer orderPrice;
+    private Integer usedMileageAmount;
+    private Boolean isCompanyDiscount;
+    private DiscountType discountType;
 
     public Order toEntity(OrderRequestDto dto){
-        return Order.builder().name(dto.getName()).build();
+        return Order.builder().build();
     }
 }

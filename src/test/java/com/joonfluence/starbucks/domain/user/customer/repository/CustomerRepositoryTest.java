@@ -21,8 +21,8 @@ class CustomerRepositoryTest {
     public static void init(){
         Double random = Math.random();
         String userId = "joonluence.dev" + random.toString() + "@gmail.com";
-        dbInsertedUser = Customer.builder().name("Junho").email(userId).password("12341234").build();
-        newUserRequest = Customer.builder().name("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
+        dbInsertedUser = Customer.builder().nickName("Junho").email(userId).password("12341234").build();
+        newUserRequest = Customer.builder().nickName("Junho").email("joonfluence.dev2@gmail.com").password("12341234").build();
     }
 
     @BeforeEach
@@ -38,7 +38,7 @@ class CustomerRepositoryTest {
 
         // then
         Assertions.assertNotNull(saved);
-        Assertions.assertEquals(saved.getName(), newUserRequest.getName());
+        Assertions.assertEquals(saved.getNickName(), newUserRequest.getNickName());
         Assertions.assertEquals(saved.getPassword(), newUserRequest.getPassword());
     }
 
@@ -48,7 +48,7 @@ class CustomerRepositoryTest {
         // given & when
         Customer foundCustomer = repository.findById(dbInsertedUser.getId()).orElseThrow(() -> new NoSuchElementException("존재하지 않습니다"));
         // then
-        Assertions.assertEquals(foundCustomer.getName(), dbInsertedUser.getName());
+        Assertions.assertEquals(foundCustomer.getNickName(), dbInsertedUser.getNickName());
         Assertions.assertEquals(foundCustomer.getPassword(), dbInsertedUser.getPassword());
     }
 }
