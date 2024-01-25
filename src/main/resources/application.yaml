@@ -1,7 +1,7 @@
 spring:
   profiles:
     active:
-      - dev
+      - test
   output:
     ansi:
       enabled: ALWAYS
@@ -24,3 +24,20 @@ application:
       expiration: 1800000 # 30 min
       refresh-token:
         expiration: 604800000 # 7 days
+management:
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app:
+    name: actuator-test
+    company: spring-boot-company
