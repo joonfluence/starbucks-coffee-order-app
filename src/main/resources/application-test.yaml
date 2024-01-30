@@ -1,0 +1,32 @@
+spring:
+  config:
+    activate:
+      on-profile: "test"
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: jdbc:h2:mem:starbucks
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate: # hibernate 사용 설정
+      ddl-auto: create-drop
+    properties: # property 사용 설정
+      hibernate: # hibernate property 설정
+        show-sql: true
+        format_sql: true
+  redis:
+    host: localhost
+    port: 6379
+  logging:
+    level:
+      org.hibernate.SQL: debug
+h2:
+  console:
+    enabled: true
+application:
+  security:
+    jwt:
+      secret-key: 'zBr9aAzjoQM8tNXAYoi2Fvxn8Ohe52KYTjYVCRFC6sM='

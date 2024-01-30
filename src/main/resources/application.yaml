@@ -1,13 +1,43 @@
 spring:
   profiles:
     active:
-      - dev
+      - test
   output:
     ansi:
       enabled: ALWAYS
   logging:
     level:
       org.hibernate.SQL: debug
+  data:
+    redis:
+      repositories:
+        enabled: true
+    jpa:
+      repositories:
+        bootstrap-mode: default
 h2:
   console:
     enabled: true
+application:
+  security:
+    jwt:
+      expiration: 1800000 # 30 min
+      refresh-token:
+        expiration: 604800000 # 7 days
+management:
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app:
+    name: actuator-test
+    company: spring-boot-company
