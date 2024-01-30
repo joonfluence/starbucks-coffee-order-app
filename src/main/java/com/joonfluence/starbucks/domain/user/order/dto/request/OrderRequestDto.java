@@ -1,6 +1,7 @@
 package com.joonfluence.starbucks.domain.user.order.dto.request;
 
 import com.joonfluence.starbucks.domain.user.order.entity.Order;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class OrderRequestDto {
+    @NotNull
     private Long customerId;
     private List<Long> productIds;
     private List<CouponProduct> couponProductList;

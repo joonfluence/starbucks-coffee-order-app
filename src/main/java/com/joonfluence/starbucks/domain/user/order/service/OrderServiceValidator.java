@@ -22,7 +22,10 @@ public class OrderServiceValidator {
 
     public void validateProducts(List<Long> productIds) {
         productIds.forEach(productId -> {
-            productRepository.findById(productId).orElseThrow(() -> new NoSuchProductException("해당 상품이 존재하지 않습니다."));
+            productRepository.findById(productId).orElseThrow(() -> {
+                String errMsg = productId + "번 상품이 존재하지 않습니다.";
+                throw new NoSuchProductException(errMsg);
+            });
         });
     }
 }

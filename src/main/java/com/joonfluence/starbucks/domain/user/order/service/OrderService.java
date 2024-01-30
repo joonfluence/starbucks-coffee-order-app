@@ -6,7 +6,6 @@ import com.joonfluence.starbucks.domain.admin.product.repository.ProductReposito
 import com.joonfluence.starbucks.domain.admin.product.service.ProductService;
 import com.joonfluence.starbucks.domain.user.customer.entity.Customer;
 import com.joonfluence.starbucks.domain.user.customer.exception.NoSuchCustomerException;
-import com.joonfluence.starbucks.domain.user.customer.repository.CustomerRepository;
 import com.joonfluence.starbucks.domain.user.customer.service.CustomerService;
 import com.joonfluence.starbucks.domain.user.order.dto.request.OrderRequestDto;
 import com.joonfluence.starbucks.domain.user.order.entity.Order;
